@@ -31,6 +31,6 @@ char* readBookFile(char* filename) {
     }
 }
 
-struct Chapter readOneChapter(char* chapterText) {
+void convertChapLine(struct Chapter* chapter, char* chapterLine) {
 
 }

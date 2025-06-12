@@ -13,4 +13,10 @@ struct ChapterArray {
     int size;
 };
 
+//On initialise le tableau de chapitres
+struct ChapterArray chap_array_init();
+
+//On ajoute un chapitre au tableau dynamique
+void chapter_add(struct ChapterArray *chapArray, struct Chapter chapter);
+
 #endif //CHAPTER_ARRAY_H
