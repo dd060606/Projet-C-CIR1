@@ -4,7 +4,6 @@
 
 int main(void) {
     struct ChapterArray chapArray = readBookFile("../book.txt");
-    char *html = createHTMLContent(&chapArray.chapters[0]);
-    printf("%s", html);
+    writeHTML(&chapArray);
     return 0;
 }

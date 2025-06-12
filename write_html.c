@@ -6,31 +6,36 @@
 #include <stdlib.h>
 #include <string.h>
 #include "write_html.h"
-#include <stdio.h>
 #include "chapter.h"
-void writeHTML(struct ChapterArray* chapterArray) {
-    for(int i=0; i < chapterArray->size;i++) {
-        char filename[10];
-        sprintf(filename, "%02d.html", chapterArray->chapters[i].id);  //génère le nom de notre fichier en fonction du numéro du chapitre
-
-        writeFile(filename, chapterArray->chapters[i].content);
-
-    }
-
 #include "utils.h"
 
 void writeHTML(struct ChapterArray *chapterArray) {
+    // On crée les dossiers nécessaires
+#ifdef _WIN32
+        system("mkdir ..\\export\\chapters >nul 2>&1");
+#else
+    system("mkdir -p ../export/chapters");
+#endif
+    for (int i = 0; i < chapterArray->size; i++) {
+        char filename[50];
+        sprintf(filename, "../export/chapters/%d.html", chapterArray->chapters[i].id);
+        writeFile(filename, createHTMLContent(&chapterArray->chapters[i]));
+    }
 }
 
-void writeFile(char* fileOutputName, char* content) {
-    FILE* f = fopen(fileOutputName, "w");
-    fputs(content, f); //fonction qui permet d'écrire un texte dans un fichier
+void writeFile(char *fileOutputName, char *content) {
+    FILE *f = fopen(fileOutputName, "w");
+    if (f == NULL) {
+        fprintf(stderr, "Error: failed to open file %s for writing\n", fileOutputName);
+        return;
+    }
+
+    fputs(content, f);
     fclose(f);
-
 }
 
 
-    // Les templates HTML
+// Les templates HTML
 char *chapDivTemplate = "<div class=\"chapter\" id=\"chapter-%d\">\n"
         "%s\n" // Contenu du chapitre
         "</div>\n";
