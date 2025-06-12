@@ -41,3 +41,5 @@
 
 # Dossier exportation du programme
 /export/
+
+*.docx
