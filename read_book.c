@@ -5,55 +5,6 @@
 #include "read_book.h"
 #include <stdlib.h>
 #include <string.h>
-#define LINE_SIZE 512
-
-//On initialise un chapitre vide
-struct Chapter initChapter() {
-    struct Chapter chapter = {.choiceLen = 0, .contentLen = 0};
-    //On initialise des tableaux vides de 5 pour les choix et le contenu
-    chapter.choices = malloc(5 * sizeof(struct Choice));
-    if (chapter.choices == NULL) {
-        exit(1);
-    }
-    //On alloue de la mémoire pour chaque choix
-    for (int i = 0; i < 5; ++i) {
-        chapter.choices[i].choicename = malloc(LINE_SIZE * sizeof(char));
-        if (chapter.choices[i].choicename == NULL) {
-            exit(1);
-        }
-        chapter.choices[i].choicename[0] = '\0';
-        chapter.choices[i].chapNumber = 0;
-    }
-
-    chapter.content = malloc(5 * sizeof(char*));
-    if (chapter.content == NULL) {
-        exit(1);
-    }
-    //On alloue de la mémoire pour chaque paragraphe du contenu
-    for (int i = 0; i < 5; ++i) {
-        chapter.content[i] = malloc(LINE_SIZE * sizeof(char));
-        if (chapter.content[i] == NULL) {
-            exit(1);
-        }
-        chapter.content[i][0] = '\0';
-    }
-
-    //on initialise le titre
-    chapter.title = malloc(LINE_SIZE * sizeof(char));
-    if (chapter.title == NULL) {
-        exit(1);
-    }
-    // On initialise le titre à une chaîne vide
-    chapter.title[0] = '\0';
-
-    return chapter;
-}
-
-//On libère un chapitre
-void freeChapter(struct Chapter* chapter) {
-    chapter->choiceLen = 0;
-    chapter->contentLen = 0;
-}
 
 //On lit le fichier book.txt et on retourne un tableau de chapitres
 struct ChapterArray readBookFile(char* filename) {

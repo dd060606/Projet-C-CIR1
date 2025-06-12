@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "chapter_array.h"
+#include "chapter.h"
 
 struct Chapter {
     int id;         //identifiant du chapitre
@@ -23,9 +23,6 @@ struct Choice {
     int chapNumber;     //numéro du chapitre
     char* choicename;         //texte du choix
 };
-//On initialise un chapitre
-struct Chapter initChapter();
-void freeChapter(struct Chapter* chapter);
 
 //On retourne un tableau de tous les chapitres
 struct ChapterArray readBookFile(char* filename);

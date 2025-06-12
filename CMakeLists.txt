@@ -8,5 +8,5 @@ add_executable(Projet_C_CIR1 main.c
         read_book.h
         write_html.c
         write_html.h
-        chapter_array.c
-        chapter_array.h)
+        chapter.c
+        chapter.h)
