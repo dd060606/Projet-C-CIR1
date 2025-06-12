@@ -60,6 +60,30 @@ char* readBookFile(char* filename) {
     }
 }
 
+//On convertit une ligne de chapitre en un champ de la structure Chapter
 void convertChapLine(struct Chapter* chapter, char* chapterLine) {
-
+    if(startsWith(chapterLine, "<chapter")) {
+        //Pour la balise <chapter> on récupère le texte et l'id du chapitre
+        int id;
+        char titre[LINE_SIZE];
+        sscanf(chapterLine, "<chapter id=\"%d\">%[^<]s</chapter>", &id, titre);
+        strcpy(chapter->title, titre);
+        chapter->id = id;
+    }
+    else if(startsWith(chapterLine, "<p>")) {
+        //Pour la balise <p> on récupère le texte du paragraphe
+        char text[LINE_SIZE];
+        sscanf(chapterLine, "<p>%[^<]s</p>", text);
+        strcpy(chapter->content[chapter->choiceLen], text);
+        chapter->contentLen++;
+    }
+    else if(startsWith(chapterLine, "<choice")) {
+        //Pour la balise <choice> on récupère le texte et l'id du choix
+        int id;
+        char choicename[LINE_SIZE];
+        sscanf(chapterLine, "<choice idref=\"%d\">%[^<]s</choice>", &id, choicename);
+        strcpy(chapter->choices[chapter->choiceLen].choicename, choicename);
+        chapter->choices[chapter->choiceLen].chapNumber = id;
+        chapter->choiceLen++;
+    }
 }
