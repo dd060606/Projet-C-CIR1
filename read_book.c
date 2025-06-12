@@ -24,6 +24,7 @@ void freeChapter(struct Chapter* chapter) {
         chapter->content = NULL;
     }
     chapter->contentLen = 0; //on remet les varaibles à 0
+    chapter->id=0;
 
     //on fait pareil pour la structure choice
     free(chapter->choices);
