@@ -3,3 +3,11 @@
 //
 
 #include "write_html.h"
+
+void writeHTML(struct ChapterArray* chapterArray) {
+
+}
+
+void writeFile(char* fileOutputName, char* content) {
+
+}
