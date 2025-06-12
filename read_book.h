@@ -23,17 +23,18 @@ struct Choice {
     int chapNumber;     //numéro du chapitre
     char* choicename;         //texte du choix
 };
+//On initialise un chapitre
+struct Chapter initChapter();
+void freeChapter(struct Chapter* chapter);
 
 //On retourne un tableau de tous les chapitres
-struct ChapterArray readBookFile(char* filename, int* chaptersCount);
+struct ChapterArray readBookFile(char* filename);
 
 //Fonction pour comprendre une ligne du fichier book.txt et d'ajouter le champ correspondant
 //à la structure Chapter
 void convertChapLine(struct Chapter* chapter, char* chapterLine);
 
 //Renvoie true si la ligne commence par une chaîne de caractères donnée
-bool startsWith(const char* line, const char* str) {
-    return strncmp(line, str, strlen(str)) == 0;
-}
+bool startsWith(const char* line, const char* str);
 
 #endif //READ_BOOK_H

@@ -6,33 +6,57 @@
 #include <stdlib.h>
 #include <string.h>
 #define LINE_SIZE 512
-void readChapter(struct Chapter *chapter);
 
-void freeChapter(struct Chapter* chapter) {
-
-
-    // Libère le titre
-    free(chapter->title);
-    chapter->title = NULL;//on remet les variables à 0
-
-    // Libère chaque paragraphe du contenu (si alloué dynamiquement)
-    if (chapter->content) {
-        for (int i = 0; i < chapter->contentLen; ++i) {     //on parcourt tout le texte
-            free(chapter->content[i]);  //on libère chaque tableau chacun son tour
-        }
-        free(chapter->content);  // on libère la mémoire du tableau qui héberge les textes
-        chapter->content = NULL;
+//On initialise un chapitre vide
+struct Chapter initChapter() {
+    struct Chapter chapter = {.choiceLen = 0, .contentLen = 0};
+    //On initialise des tableaux vides de 5 pour les choix et le contenu
+    chapter.choices = malloc(5 * sizeof(struct Choice));
+    if (chapter.choices == NULL) {
+        exit(1);
     }
-    chapter->contentLen = 0; //on remet les varaibles à 0
-    chapter->id=0;
+    //On alloue de la mémoire pour chaque choix
+    for (int i = 0; i < 5; ++i) {
+        chapter.choices[i].choicename = malloc(LINE_SIZE * sizeof(char));
+        if (chapter.choices[i].choicename == NULL) {
+            exit(1);
+        }
+        chapter.choices[i].choicename[0] = '\0';
+        chapter.choices[i].chapNumber = 0;
+    }
 
-    //on fait pareil pour la structure choice
-    free(chapter->choices);
-    chapter->choices = NULL;
-    chapter->choiceLen = 0;
+    chapter.content = malloc(5 * sizeof(char*));
+    if (chapter.content == NULL) {
+        exit(1);
+    }
+    //On alloue de la mémoire pour chaque paragraphe du contenu
+    for (int i = 0; i < 5; ++i) {
+        chapter.content[i] = malloc(LINE_SIZE * sizeof(char));
+        if (chapter.content[i] == NULL) {
+            exit(1);
+        }
+        chapter.content[i][0] = '\0';
+    }
+
+    //on initialise le titre
+    chapter.title = malloc(LINE_SIZE * sizeof(char));
+    if (chapter.title == NULL) {
+        exit(1);
+    }
+    // On initialise le titre à une chaîne vide
+    chapter.title[0] = '\0';
+
+    return chapter;
 }
 
-char* readBookFile(char* filename) {
+//On libère un chapitre
+void freeChapter(struct Chapter* chapter) {
+    chapter->choiceLen = 0;
+    chapter->contentLen = 0;
+}
+
+//On lit le fichier book.txt et on retourne un tableau de chapitres
+struct ChapterArray readBookFile(char* filename) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
         printf("Unable to open file <%s>\n", filename);
@@ -58,6 +82,7 @@ char* readBookFile(char* filename) {
 
 
     }
+    return chapterArray;
 }
 
 //On convertit une ligne de chapitre en un champ de la structure Chapter
@@ -74,7 +99,7 @@ void convertChapLine(struct Chapter* chapter, char* chapterLine) {
         //Pour la balise <p> on récupère le texte du paragraphe
         char text[LINE_SIZE];
         sscanf(chapterLine, "<p>%[^<]s</p>", text);
-        strcpy(chapter->content[chapter->choiceLen], text);
+        strcpy(chapter->content[chapter->contentLen], text);
         chapter->contentLen++;
     }
     else if(startsWith(chapterLine, "<choice")) {
@@ -86,4 +111,8 @@ void convertChapLine(struct Chapter* chapter, char* chapterLine) {
         chapter->choices[chapter->choiceLen].chapNumber = id;
         chapter->choiceLen++;
     }
+}
+
+bool startsWith(const char* line, const char* str) {
+    return strncmp(line, str, strlen(str)) == 0;
 }
