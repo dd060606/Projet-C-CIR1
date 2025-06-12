@@ -14,8 +14,11 @@ char* readBookFile(char* filename) {
     }
 
     char line[LINE_SIZE];
+    struct Chapter chapter;
     while(fgets(line, sizeof(line), file)) {
-
+        //si double saut de ligne
+        //     créer une nouvelle struct chapter
+        //
     }
 }
 
