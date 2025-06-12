@@ -6,16 +6,16 @@
 #define READ_BOOK_H
 
 struct Chapter {
-    char* title;
-    char** content;
-    int contentLen;
-    struct Choice* choices;
-    int choiceLen;
+    char* title;        //variable du titre du chapitre
+    char** content;     //tableau de texte
+    int contentLen;     //nombre de paragraphes
+    struct Choice* choices;     //tableau pour les choix
+    int choiceLen;              //nombre de choix disponibles
 };
 
 struct Choice {
-    int chapNumber;
-    char* text;
+    int chapNumber;     //numéro du chapitre
+    char* choicename;         //texte du choix
 };
 
 #endif //READ_BOOK_H
