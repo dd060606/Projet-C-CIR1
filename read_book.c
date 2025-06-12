@@ -15,24 +15,17 @@ struct ChapterArray readBookFile(char* filename) {
     }
     struct ChapterArray chapterArray=chap_array_init();
     struct Chapter chapter;
-    int saut_de_ligne=0;
     char line[LINE_SIZE];
 
     while(fgets(line, sizeof(line), file)) {
-        if (strcmp(line,"\n") == 0) {
-            saut_de_ligne++;
-        }
-        else {
-            saut_de_ligne=0;    //on retemet saut de ligne a 0 car sinon il comptera juste tous les sauts de ligne du texte
-        }
-        if (saut_de_ligne==2) {
+        //Si il y a un retour à la ligne
+        if (strlen(line) == 2) {
             chapter_add(&chapterArray,chapter);     //on fait en sorte d'isoler les chapitres
             freeChapter(&chapter);      //on remet les variables à 0  pour avoir un autre chapitre
-
         }
-
-
     }
+    chapter_add(&chapterArray,chapter);
+    freeChapter(&chapter);
     return chapterArray;
 }
 
