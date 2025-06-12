@@ -5,6 +5,8 @@
 #ifndef READ_BOOK_H
 #define READ_BOOK_H
 
+#include "chapter_array.h"
+
 struct Chapter {
     char* title;        //variable du titre du chapitre
     char** content;     //tableau de texte
@@ -18,12 +20,10 @@ struct Choice {
     char* choicename;         //texte du choix
 };
 
-char* readBookFile(char* filename);
-
-//Lit un seul chapitre en fonction d'un chapitre sous forme de texte
-struct Chapter readOneChapter(char* chapterText);
-
 //On retourne un tableau de tous les chapitres
-struct Chapter* readAllChapters(char* allText, int chaptersCount);
+struct ChapterArray readBookFile(char* filename, int* chaptersCount);
+
+//
+void convertChapLine(struct Chapter* chapter, char* chapterLine);
 
 #endif //READ_BOOK_H
