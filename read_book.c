@@ -17,14 +17,14 @@ struct ChapterArray readBookFile(char* filename) {
     struct Chapter chapter;
     char line[LINE_SIZE];
 
-    while(fgets(line, sizeof(line), file)) {
+    while(fgets(line, sizeof(line), file)) { //lit ligne par ligne
         //Si il y a un retour à la ligne
         if (strlen(line) == 2) {
             chapter_add(&chapterArray,chapter);     //on fait en sorte d'isoler les chapitres
             freeChapter(&chapter);      //on remet les variables à 0  pour avoir un autre chapitre
         }
     }
-    chapter_add(&chapterArray,chapter);
+    chapter_add(&chapterArray,chapter);//on le remet pour ajouter un chapitre car il n'y a pas de retour à la ligne au dernier chapitre
     freeChapter(&chapter);
     return chapterArray;
 }
