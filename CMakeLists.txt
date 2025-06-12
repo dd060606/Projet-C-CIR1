@@ -9,4 +9,6 @@ add_executable(Projet_C_CIR1 main.c
         write_html.c
         write_html.h
         chapter.c
-        chapter.h)
+        chapter.h
+        utils.c
+        utils.h)

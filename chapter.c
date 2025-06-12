@@ -4,7 +4,9 @@
 
 #include "chapter.h"
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //On initialise un chapitre vide
 struct Chapter initChapter() {
@@ -24,7 +26,7 @@ struct Chapter initChapter() {
         chapter.choices[i].chapNumber = 0;
     }
 
-    chapter.content = malloc(5 * sizeof(char*));
+    chapter.content = malloc(5 * sizeof(char *));
     if (chapter.content == NULL) {
         exit(1);
     }
@@ -48,13 +50,6 @@ struct Chapter initChapter() {
     return chapter;
 }
 
-//On libère un chapitre
-void freeChapter(struct Chapter* chapter) {
-    chapter->choiceLen = 0;
-    chapter->contentLen = 0;
-}
-
-
 //On initialise notre tableau de chapitres
 struct ChapterArray chap_array_init() {
     //On alloue un tableau de chapitres
@@ -67,7 +62,7 @@ struct ChapterArray chap_array_init() {
 }
 
 //On ajoute un chapitre
-void chapter_add(struct ChapterArray *chapArray, struct Chapter chapter){
+void chapter_add(struct ChapterArray *chapArray, struct Chapter chapter) {
     if (chapArray->size == chapArray->capacity) {
         //Le tableau est remplit on l'agrandit
         chapArray->capacity *= 2;
@@ -86,4 +81,42 @@ void chapter_add(struct ChapterArray *chapArray, struct Chapter chapter){
     //On ajoute le chapitre
     chapArray->chapters[chapArray->size] = chapter;
     chapArray->size++;
+}
+
+//Copie profonde d'un chapitre
+struct Chapter deep_copy_chapter(struct Chapter *src) {
+    struct Chapter copy;
+    copy.id = src->id;
+
+    // Copier le titre
+    if (src->title != NULL) {
+        copy.title = strdup(src->title);
+    } else {
+        copy.title = NULL;
+    }
+
+    // Copier le contenu
+    copy.contentLen = src->contentLen;
+    if (src->contentLen > 0) {
+        copy.content = malloc(copy.contentLen * sizeof(char *));
+        for (int i = 0; i < copy.contentLen; ++i) {
+            copy.content[i] = strdup(src->content[i]);
+        }
+    } else {
+        copy.content = NULL;
+    }
+
+    // Copier les choix
+    copy.choiceLen = src->choiceLen;
+    if (copy.choiceLen > 0) {
+        copy.choices = malloc(copy.choiceLen * sizeof(struct Choice));
+        for (int i = 0; i < copy.choiceLen; ++i) {
+            copy.choices[i].chapNumber = src->choices[i].chapNumber;
+            copy.choices[i].choicename = strdup(src->choices[i].choicename);
+        }
+    } else {
+        copy.choices = NULL;
+    }
+
+    return copy;
 }
