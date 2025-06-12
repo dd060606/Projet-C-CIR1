@@ -18,4 +18,12 @@ struct Choice {
     char* text;
 };
 
+char* readBookFile(char* filename);
+
+//Lit un seul chapitre en fonction d'un chapitre sous forme de texte
+struct Chapter readOneChapter(char* chapterText);
+
+//On retourne un tableau de tous les chapitres
+struct Chapter* readAllChapters(char* allText, int chaptersCount);
+
 #endif //READ_BOOK_H
