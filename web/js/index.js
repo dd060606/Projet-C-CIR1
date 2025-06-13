@@ -1,6 +1,7 @@
 
 function main() {
     resetGameTimer();
+
 }
 
 main();

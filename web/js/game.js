@@ -1,6 +1,12 @@
+let life=100;
+
+
 function main() {
     initGameTimer();
-
+    initinventory();
+    updatelife(100,30);
+    updateenergy(100,30);
+    updateprecision(100,200);
 }
 
 main();
@@ -35,3 +41,48 @@ function formatTime(seconds) {
     return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
+function initinventory(){
+   let tab = document.querySelectorAll(".slot");
+
+    tab.forEach((element,index) => {
+        element.addEventListener("click",function(){
+            colorinventory(index);
+        });
+   });
+
+}
+
+function colorinventory(index){
+    let tab = document.querySelectorAll(".slot");
+    tab.forEach(element => {
+        element.style.border = "2px solid transparent"; //on fait ca pour mettre toutes les bordures en transparent
+    });
+    tab[index].style.border = "2px solid #3498db"; // on ajoute la bordure bleue au carré séléctioné
+}
+
+function updatelife(life,attack){
+    life=life-attack;
+    let visualstats= document.querySelectorAll(".statline span")  //on prend que les span dans la div statline
+    let visuallife=visualstats[0];
+    visuallife.innerText=life;
+}
+
+
+function updateenergy(energy,cost){
+    energy=energy-cost;
+    let visualstats= document.querySelectorAll(".statline span")  //on prend que les span dans la div statline
+    let visualenergy=visualstats[1];
+    visualenergy.innerText=energy;
+
+}
+
+function updateprecision(precision,weaponprecision){
+    precision=weaponprecision;
+    let visualstats= document.querySelectorAll(".statline span")  //on prend que les span dans la div statline
+    let visualprecision=visualstats[2];
+    visualprecision.innerText=weaponprecision;
+
+
+
+
+}
