@@ -10,11 +10,17 @@
 #include "utils.h"
 
 void writeHTML(struct ChapterArray *chapterArray) {
+    // Tout d'abord on supprime le dossier export s'il existe pour le recréer proprement
     // On crée les dossiers nécessaires
+    // Puis on copie les fichiers web dans le dossier export
 #ifdef _WIN32
-        system("mkdir ..\\export\\chapters >nul 2>&1");
+    system("rmdir /S /Q ..\\export >nul 2>&1");
+    system("mkdir ..\\export\\chapters >nul 2>&1");
+    system("xcopy /E /I /Y ..\\web\\* ..\\export\\");
 #else
+    system("rm -rf ../export/");
     system("mkdir -p ../export/chapters");
+    system("cp -a ../web/. ../export/");
 #endif
     for (int i = 0; i < chapterArray->size; i++) {
         char filename[50];
