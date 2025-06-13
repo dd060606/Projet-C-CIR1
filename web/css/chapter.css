@@ -7,20 +7,16 @@ body {
 
 h1 {
 	font-family: "Lora", serif;
-	color: #f0e6d2;
+	color: var(--text-primary);
 	font-size: 1.5rem;
 	align-items: flex-start;
 	margin: 0%;
 }
 
 p {
-	color: #f0e6d2;
+	color: var(--text-primary);
 	font-family: "Lora", serif;
 	align-items: center;
-}
-
-.choice p {
-	width: 300px;
 }
 
 .chapentier {
@@ -34,7 +30,7 @@ p {
 
 .chapter {
 	display: flex;
-	background-color: #2c2c2c;
+	background-color: var(--light-background);
 	border-radius: 10px;
 	height: 300px;
 	gap: 5px;
@@ -43,41 +39,105 @@ p {
 	padding: 2rem;
 	overflow-y: auto;
 	scrollbar-width: thin;
-	scrollbar-color: #444 #232323;
+	scrollbar-color: var(--light-background) var(--background);
 }
 /* Style de la scroll bar */
 .chapter::-webkit-scrollbar {
 	width: 8px;
-	background: #232323;
+	background: var(--background);
 	border-radius: 10px;
 }
 
 .chapter::-webkit-scrollbar-thumb {
-	background: #444;
+	background: var(--light-background);
 	border-radius: 10px;
 }
 
-.chapter::-webkit-scrollbar-thumb:hover {
-	background: #666;
-}
-.bonhomme {
+/* Stats */
+.stats {
 	display: flex;
-	background-color: #1f1f1f;
+	background-color: var(--background-secondary);
 	border-radius: 10px;
 	width: 30%;
-	padding: 5px 10px 5px 10px;
+	padding: 1.5rem;
 	flex-direction: column;
 }
+.player-stats {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+.statline-container {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	gap: 10px;
+}
+.statline {
+	display: flex;
+	flex-direction: row;
+	gap: 7px;
+	align-items: center;
+}
+.statline p {
+	margin: 5px 0;
+}
+.statline span {
+	font-weight: 700;
+}
 
+.player-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--light-background);
+	width: 100px;
+	height: 100px;
+	border-radius: 10px;
+	padding: 1rem;
+}
+.player-box img {
+	width: 100%;
+	height: 100%;
+}
+/* Inventaire */
+.inventory {
+	display: flex;
+	flex-direction: column;
+	justify-self: flex-end;
+}
+.inventory h2 {
+	font-family: "Cinzel Decorative", cursive;
+	font-weight: 400;
+	margin: 20px 0;
+	color: var(--text-primary);
+}
+.inventory .slots {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}
+.inventory .slot {
+	background-color: var(--light-background);
+	border-radius: 10px;
+	width: 70px;
+	height: 70px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+/* Les choix */
 .chapchoice {
 	display: flex;
-	justify-content: flex-end;
-	background-color: #2c2c2c;
+	background-color: var(--light-background);
 	border-radius: 10px;
 	gap: 5px;
 	height: 100%;
 	margin: 0 20px;
-	flex-direction: column;
 	padding: 10px;
 	margin-top: 3%;
 	opacity: 90%;
@@ -95,6 +155,7 @@ p {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+	text-decoration: none;
 	transition: transform 0.2s;
 }
 .choice:hover {
@@ -107,4 +168,15 @@ p {
 	color: #000;
 	font-size: 12px;
 	margin-left: 30px;
+}
+
+/* Jeu */
+.game-box {
+	display: flex;
+	align-items: center;
+	width: 80%;
+}
+#player {
+	width: 125px;
+	height: 125px;
 }

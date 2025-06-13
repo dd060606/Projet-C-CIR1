@@ -39,21 +39,53 @@
             <p>Le vent frais souffle à travers les arbres, vous donnant un dernier souffle de courage. Vous faites vos
                 adieux aux habitants de Grinheim et prenez le chemin de l’aventure.</p>
         </div>
-        <div class="bonhomme">
+        <div class="stats">
             <h1>Votre personnage</h1>
-            <div class=" stat">
-                <img src="assets/coeur.png" width="5%">
-
+            <div class="player-stats">
+                <div class="statline-container">
+                    <div class="statline">
+                        <img src="assets/coeur.png" width=20px height="20px">
+                        <p>Vie: <span>100 PV</span></p>
+                    </div>
+                    <div class="statline">
+                        <img src="assets/cible.png" width=20px height="20px">
+                        <p>Précision: <span>10 </span></p>
+                    </div>
+                    <div class="statline">
+                        <img src="assets/eclair.png" width=20px height="20px">
+                        <p>Énergie: <span>100 </span></p>
+                    </div>
+                </div>
+                <div class="player-box">
+                    <img src="assets/player.png" alt="player">
+                </div>
+            </div>
+            <div class="inventory">
+                <h2>Inventaire</h2>
+                <div class="slots">
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                    <div class="slot"></div>
+                </div>
             </div>
         </div>
     </div>
+
     <div class="chapchoice">
-        <a class="choice">
-            <p class="choice-text">Suivre le chemin au sud, qui mène à la Forêt de Bois-Perdu.</p>
-        </a>
-        <a class="choice">
-            <p class="choice-text">Vous dirigez vers l’Est, où un ancien château a été aperçu par les voyageurs.</p>
-        </a>
+        <div class="game-box">
+            <img src="assets/player.png" alt="player" id="player">
+
+        </div>
+        <div class="choices-container">
+            <a class="choice">
+                <p class="choice-text">Suivre le chemin au sud, qui mène à la Forêt de Bois-Perdu.</p>
+            </a>
+            <a class="choice">
+                <p class="choice-text">Vous dirigez vers l’Est, où un ancien château a été aperçu par les voyageurs.</p>
+            </a>
+        </div>
     </div>
 </body>
 
