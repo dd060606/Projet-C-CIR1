@@ -5,43 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dragons</title>
-    <link rel="stylesheet" href="css/test.css">
-
-     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Lora&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/chapter.css">
+    <script src="js/game.js" defer></script>
 </head>
-<body >
+
+<body>
+    <!-- Barre de navigation -->
+    <nav>
+        <a href="index.html" class="nav-link">
+            <h1>Dragons</h1>
+        </a>
+        <div>
+            <p>Temps de jeu</p>
+            <span id="play-time"></span>
+        </div>
+    </nav>
     <div class="chapentier">
-    <div class="chapter" id="chapter-1">
-        <h1>Le Village de Grinheim</h1>
-        <p>Vous êtes originaire du village de Grinheim, un endroit tranquille niché entre des collines verdoyantes et une forêt dense. Le village, autrefois prospère, se trouve aujourd'hui sous l'emprise d'une malédiction ancienne. Les récoltes pourrissent, les enfants tombent malades, et un sentiment d'oppression envahit l'air. Selon la légende, un artefact puissant, le Collier aux Sept Pierres, possède le pouvoir de briser la malédiction et de sauver Grinheim.</p>
-        <p>Cette légende a traversé les générations, mais personne n'a osé se lancer à sa recherche. C’est vous qui allez tenter de briser ce cycle de malheur. Vous partez à l’aube, votre sac de voyage prêt, les premiers rayons du soleil caressant la terre. Vous avez entendu que le collier se trouve quelque part au-delà de la Forêt de Bois-Perdu, un endroit que peu de gens osent traverser.</p>
-        <p>Le vent frais souffle à travers les arbres, vous donnant un dernier souffle de courage. Vous faites vos adieux aux habitants de Grinheim et prenez le chemin de l’aventure.</p>
+        <div class="chapter" id="chapter-1">
+            <h1>Le Village de Grinheim</h1>
+            <p>Vous êtes originaire du village de Grinheim, un endroit tranquille niché entre des collines verdoyantes
+                et une forêt dense. Le village, autrefois prospère, se trouve aujourd'hui sous l'emprise d'une
+                malédiction ancienne. Les récoltes pourrissent, les enfants tombent malades, et un sentiment
+                d'oppression envahit l'air. Selon la légende, un artefact puissant, le Collier aux Sept Pierres, possède
+                le pouvoir de briser la malédiction et de sauver Grinheim.</p>
+            <p>Cette légende a traversé les générations, mais personne n'a osé se lancer à sa recherche. C’est vous qui
+                allez tenter de briser ce cycle de malheur. Vous partez à l’aube, votre sac de voyage prêt, les premiers
+                rayons du soleil caressant la terre. Vous avez entendu que le collier se trouve quelque part au-delà de
+                la Forêt de Bois-Perdu, un endroit que peu de gens osent traverser.</p>
+            <p>Le vent frais souffle à travers les arbres, vous donnant un dernier souffle de courage. Vous faites vos
+                adieux aux habitants de Grinheim et prenez le chemin de l’aventure.</p>
         </div>
-        <div class="bonhomme"><h1>Votre personnage</h1>
-        <div class=" stat">
-           <img src="assets/coeur.png" width="5%">
+        <div class="bonhomme">
+            <h1>Votre personnage</h1>
+            <div class=" stat">
+                <img src="assets/coeur.png" width="5%">
 
+            </div>
         </div>
-        </div>
-        </div>
-        <div class="chapchoice">
-        <div class="choice1">
-        <div class="choice">
-        <p class="p1">Suivre le chemin au sud, qui mène à la Forêt de Bois-Perdu. </p>
-        <a href="2.html">Suivre le chemin au sud, qui mène à la Forêt de Bois-Perdu. </a>
-        </div>
-        </div>
-        <div class="choice2">
-        <div class="choice">
-        <p class="p2">Vous dirigez vers l’Est, où un ancien château a été aperçu par les voyageurs. </p>
-        <a href="3.html">Vous dirigez vers l’Est, où un ancien château a été aperçu par les voyageurs. </a>
-        </div>
-        </div>
-</div>
-
-
-
-
+    </div>
+    <div class="chapchoice">
+        <a class="choice">
+            <p class="choice-text">Suivre le chemin au sud, qui mène à la Forêt de Bois-Perdu.</p>
+        </a>
+        <a class="choice">
+            <p class="choice-text">Vous dirigez vers l’Est, où un ancien château a été aperçu par les voyageurs.</p>
+        </a>
+    </div>
 </body>
 
 </html>
