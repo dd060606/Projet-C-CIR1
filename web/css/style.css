@@ -1,0 +1,29 @@
+.main-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.main-container h1 {
+	font-family: "Cinzel Decorative", cursive;
+	font-size: 2.2rem;
+	font-weight: 800;
+	margin-top: 50px;
+	color: var(--text-primary);
+}
+.books {
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+}
+.books img {
+	width: 245px;
+	margin: 10px;
+	border-radius: 20px;
+	transition: transform 0.3s ease;
+}
+.books img:hover {
+	transform: scale(1.05);
+}
+.secondary-book {
+	width: 175px !important;
+}

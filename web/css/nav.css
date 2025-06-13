@@ -1,0 +1,67 @@
+:root {
+	--primary: #d9a74f;
+	--primary-hover: #b88a3c;
+	--background-secondary: #1f1f1f;
+	--background: #121212;
+	--text-primary: #f0e6d2;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--background);
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100px;
+	padding: 1rem 2.5rem;
+	background-color: var(--background-secondary);
+}
+
+nav h1 {
+	font-family: "Cinzel Decorative", cursive;
+	font-size: 2.5rem;
+	font-weight: "bold";
+	color: var(--primary);
+}
+
+nav div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+nav p {
+	font-family: "Cinzel Decorative", cursive;
+	font-size: 1.2rem;
+	color: var(--primary);
+	margin: 0;
+}
+
+#play-time {
+	font-family: "Cinzel", cursive;
+	font-size: 1.2rem;
+	color: var(--primary);
+	margin: 0;
+}
+
+.btn {
+	background-color: var(--primary);
+	color: var(--background);
+	border: none;
+	border-radius: 10px;
+	padding: 0.2rem 2rem;
+	cursor: pointer;
+	font-family: "Cinzel Decorative", cursive;
+	font-size: 2rem;
+	font-weight: 800;
+	transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+	background-color: var(--primary-hover);
+}
