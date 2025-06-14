@@ -1,25 +1,19 @@
-let life = 100;
-
-
 function main() {
     initGameTimer();
-    spawnEntity();
 
+    initInventory();
+    // updateLife(30);
+    // updatePrecision(10);
+    // updateEnergy(30);
+    addItemToInventory(ITEMS[0]);
+    addItemToInventory(ITEMS[1]);
+    startScenario();
     // Déplacements
-    moveCharacter("player", 150, 1500).then(() => {
-        addStartDiscussionBtn();
+    moveCharacter("player", 200, 1500).then(() => {
+        addStartInteractionBtn();
     });
-    setTimeout(() => {
-        moveCharacter("entity", 300, 1500).then(() => {
-            //Code lors du retour du bonhomme 2
-            console.log("Le bonhomme 2 est revenu !");
-        });
-    }, 2500);
-
-    initinventory();
-    updatelife(100, 30);
-    updateenergy(100, 30);
-    updateprecision(100, 200);
+    // moveCharacter("entity", 300, 1500).then(() => {
+    // });
 }
 
 main();
@@ -52,106 +46,6 @@ function formatTime(seconds) {
     return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
-function moveCharacter(id, distance, duration = 1000) {
-    return new Promise((resolve) => {
-        const character = document.getElementById(id);
-        const startLeft = parseFloat(getComputedStyle(character).left) || 0;
-        const startTime = performance.now();
-
-        character.style.position = "absolute";
-        character.style.left = `${startLeft}px`;
-
-        // Déterminer le sens (retourner horizontalement si distance négative)
-        const direction = distance >= 0 ? 1 : -1;
-        character.style.transform = `scaleX(${direction})`;
-
-        function animate(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const newLeft = startLeft + distance * progress;
-            character.style.left = `${newLeft}px`;
-
-            // Oscillation de rotation pour simuler la marche (ajouté à scaleX)
-            const angle = Math.sin(progress * Math.PI * 10) * 10;
-            character.style.transform = `scaleX(${direction}) rotate(${angle}deg)`;
-
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                // Revenir à la position neutre
-                character.style.transform = `scaleX(${direction}) rotate(0deg)`;
-                resolve();
-            }
-        }
-
-        requestAnimationFrame(animate);
-    });
-}
-
-// Fait apparaitre un l'entité
-function spawnEntity() {
-    const gameBox = document.querySelector(".game-box");
-    const entity = document.createElement("img");
-    entity.id = "entity";
-    entity.className = "entity";
-    entity.src = "../assets/nathaniel.png";
-    gameBox.appendChild(entity);
-}
-
-// Ajoute le bouton pour démarrer la discussion
-function addStartDiscussionBtn() {
-    const gameBox = document.querySelector(".choices-container");
-    const button = document.createElement("button");
-    button.textContent = "Participer à la discussion";
-    button.className = "btn start-discussion-btn";
-    button.addEventListener("click", () => {
-        console.log("Discussion démarrée !");
-    });
-    gameBox.appendChild(button);
-}
-
-function initinventory() {
-    let tab = document.querySelectorAll(".slot");
-
-    tab.forEach((element, index) => {
-        element.addEventListener("click", function () {
-            colorinventory(index);
-        });
-    });
-
-}
-
-function colorinventory(index) {
-    let tab = document.querySelectorAll(".slot");
-    tab.forEach(element => {
-        element.style.border = "2px solid transparent"; //on fait ca pour mettre toutes les bordures en transparent
-    });
-    tab[index].style.border = "2px solid #3498db"; // on ajoute la bordure bleue au carré séléctioné
-}
-
-function updatelife(life, attack) {
-    life = life - attack;
-    let visualstats = document.querySelectorAll(".statline span")  //on prend que les span dans la div statline
-    let visuallife = visualstats[0];
-    visuallife.innerText = life;
-}
-
-
-function updateenergy(energy, cost) {
-    energy = energy - cost;
-    let visualstats = document.querySelectorAll(".statline span")  //on prend que les span dans la div statline
-    let visualenergy = visualstats[1];
-    visualenergy.innerText = energy;
-
-}
-
-function updateprecision(precision, weaponprecision) {
-    precision = weaponprecision;
-    let visualstats = document.querySelectorAll(".statline span")  //on prend que les span dans la div statline
-    let visualprecision = visualstats[2];
-    visualprecision.innerText = weaponprecision;
 
 
 
-
-}

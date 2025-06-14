@@ -56,6 +56,8 @@ char *totalTemplate =
         "        rel=\"stylesheet\">\n"
         "    <link rel=\"stylesheet\" href=\"../css/nav.css\">\n"
         "    <link rel=\"stylesheet\" href=\"../css/chapter.css\">\n"
+        "<script src=\"../js/gameEngine.js\" defer></script>\n"
+        "<script src=\"../js/gameStory.js\" defer></script>\n"
         "    <script src=\"../js/game.js\" defer></script>\n"
         "</head>\n"
         "\n"

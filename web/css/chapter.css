@@ -61,6 +61,8 @@ p {
 	width: 30%;
 	padding: 1.5rem;
 	flex-direction: column;
+	position: relative;
+	z-index: 1000; /* plus élevé que l’overlay */
 }
 .player-stats {
 	display: flex;
@@ -128,6 +130,12 @@ p {
 	align-items: center;
 	justify-content: center;
 	position: relative;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.inventory .item-image {
+	width: 70%;
+	height: 70%;
 }
 
 /* Les choix */
@@ -142,6 +150,43 @@ p {
 	padding: 10px;
 	margin-top: 3%;
 	opacity: 90%;
+}
+.chapchoice.is-open {
+	/* on conserve tes règles d’origine utiles… */
+	display: flex;
+	gap: 5px;
+	padding: 10px;
+	opacity: 0.9;
+	background-color: var(--light-background);
+
+	/* on ajoute le mode overlay */
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100vh; /* couvre tout le viewport */
+	margin: 0; /* écrase l’ancien margin-top */
+	transform: translateY(100%);
+	animation: slideUpOverlay 0.6s forwards ease-out;
+	z-index: 900; /* juste en‑dessous de .stats */
+}
+.chapchoice.is-open .game-box {
+	align-items: flex-end;
+	height: 90%;
+	align-self: center;
+}
+.chapchoice.is-open .choices-container {
+	justify-content: flex-end;
+	height: 90%;
+	align-self: center;
+}
+@keyframes slideUpOverlay {
+	from {
+		transform: translateY(100%);
+	}
+	to {
+		transform: translateY(0);
+	}
 }
 
 .choices-container {
@@ -178,6 +223,11 @@ p {
 	margin-left: 30px;
 }
 
+.choice-btn {
+	width: 100%;
+	margin-bottom: 15px;
+}
+
 /* Jeu */
 .game-box {
 	position: relative;
@@ -189,7 +239,6 @@ p {
 #player {
 	position: absolute;
 	left: 0;
-	top: 20%;
 	width: 125px;
 	height: 125px;
 }
@@ -197,13 +246,48 @@ p {
 	position: absolute;
 	width: 150px;
 	height: 150px;
-	left: 80%;
+	left: 70%;
 	transform: scaleX(-1);
 }
 
-.start-discussion-btn {
+.start-interaction-btn {
 	font-size: 1.5rem;
 	width: 300px;
 	align-self: center;
 	justify-self: center;
+}
+
+/* Bulles de dialogue */
+.speech-bubble {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-60%);
+	/* Valeur à ajuster selon la taille de l'entity */
+	bottom: 150px;
+	background: #fff;
+	color: #222;
+	border-radius: 20px;
+	padding: 16px 24px;
+	min-width: 300px;
+	max-width: 500px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	font-family: "Lora", serif;
+	font-size: 1rem;
+	z-index: 1001;
+	pointer-events: none;
+	opacity: 0.95;
+	border: 2px solid #ccc;
+}
+/* Flèche de la bulle de dialogue */
+.speech-bubble::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -18px;
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-top: 12px solid #fff;
+	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.08));
 }
