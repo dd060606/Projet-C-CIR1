@@ -107,20 +107,16 @@ const SCENARIOS = [
                         return;
                     }
                     isAttacking = true;
-                    shootProjectile("../assets/eclair.png").then(() => {
-                        playerAttackEntity();
+                    playerAttackEntity().then(() => {
                         // Tour de l'entité
                         setTimeout(() => {
                             if (getCurrentEntity()?.life > 0) {
                                 // L'entité attaque le joueur
-                                shootProjectile("../assets/eclair.png", false).then(() => {
-                                    entityAttackPlayer();
-                                });
+                                entityAttackPlayer().then(() => isAttacking = false);
                             } else {
                                 // Si l'entité est morte, on termine le scénario
                                 endScenario();
                             }
-                            isAttacking = false;
                         }, 500);
                     });
                 },
@@ -129,6 +125,7 @@ const SCENARIOS = [
             {
                 text: "Fuite",
                 onClick: () => {
+                    stopFight();
                     endScenario();
                     moveCharacter("player", -300, 1000).then(() => {
                         window.location.href = `${localStorage.previousChapter || 1}.html`;
@@ -280,4 +277,5 @@ function endScenario() {
     setGameInterfaceFullscreen(false);
     clearScenarioChoices();
     showChoiceButtons(true);
+    isAttacking = false;
 }

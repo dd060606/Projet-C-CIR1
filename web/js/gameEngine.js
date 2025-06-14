@@ -254,6 +254,11 @@ function startFight() {
     showHealthBar();
 }
 
+// On arrête le mode combat
+function stopFight() {
+    removeHealthBar();
+}
+
 // Affiche la barre de vie de l'entité
 function showHealthBar() {
 
@@ -298,7 +303,7 @@ function removeHealthBar() {
 }
 
 // Tire un projectile d'un élément à un autre
-function shootProjectile(image, fromPlayer = true, speed = 500) {
+function shootProjectile(image, fromPlayer = true, duration = 500) {
     return new Promise((resolve) => {
         const fromElem = fromPlayer ? document.getElementById("player") : document.getElementById("entity");
         const toElem = fromPlayer ? document.getElementById("entity") : document.getElementById("player");
@@ -325,8 +330,7 @@ function shootProjectile(image, fromPlayer = true, speed = 500) {
         projectile.style.left = `${startX}px`;
         projectile.style.top = `${startY}px`;
 
-        // Animation jusqu'à la cible
-        const duration = speed;
+        // Animation jusqu'à la cible;
         const startTime = performance.now();
         function animateProjectile(currentTime) {
             const elapsed = currentTime - startTime;
@@ -348,40 +352,51 @@ function shootProjectile(image, fromPlayer = true, speed = 500) {
 
 // L'entité attaque le joueur
 function entityAttackPlayer() {
-    const entity = getCurrentEntity();
-    // On met à jour la vie du joueur
-    updateLife(entity.damage);
+    return new Promise((resolve) => {
+        // On envoie un projectile vers le joueur
+        shootProjectile("../assets/eclair.png", false).then(() => {
+            const entity = getCurrentEntity();
+            // On met à jour la vie du joueur
+            updateLife(entity.damage);
+            resolve();
+        });
+    });
 }
 
 // Le joueur attaque l'entité
 function playerAttackEntity() {
-    const inventory = getInventory();
-    const currentItemIndex = getCurrentItemIndex();
-    if (currentItemIndex < 0 || currentItemIndex >= inventory.length) {
-        // Attaque impossible si aucun item n'est sélectionné
-        return;
-    }
-    const item = inventory[currentItemIndex];
-    const entity = getCurrentEntity();
+    return new Promise((resolve) => {
+        const inventory = getInventory();
+        const currentItemIndex = getCurrentItemIndex();
+        if (currentItemIndex < 0 || currentItemIndex >= inventory.length) {
+            // Attaque impossible si aucun item n'est sélectionné
+            return;
+        }
+        const item = inventory[currentItemIndex];
+        const entity = getCurrentEntity();
 
-    // Si l'entité est morte, on ne fait rien
-    if (!entity) {
-        return;
-    }
+        // Si l'entité est morte, on ne fait rien
+        if (!entity) {
+            return;
+        }
+        // On tire le projectile
+        shootProjectile(item.image, true, 750).then(() => {
+            // On met à jour la vie de l'entité
+            updateHealthBar(entity.life - item.damage);
 
-    // On met à jour la vie de l'entité
-    updateHealthBar(entity.life - item.damage);
+            // On met à jour l'entité dans le stockage local
+            localStorage.entity = JSON.stringify({
+                ...entity,
+                life: entity.life - item.damage
+            });
 
-    // On met à jour l'entité dans le stockage local
-    localStorage.entity = JSON.stringify({
-        ...entity,
-        life: entity.life - item.damage
+            // Victoire
+            if (entity.life - item.damage <= 0) {
+                removeHealthBar();
+                clearEntity();
+                // Gérer la victoire
+            }
+            resolve();
+        });
     });
-
-    // Victoire
-    if (entity.life - item.damage <= 0) {
-        removeHealthBar();
-        clearEntity();
-        // Gérer la victoire
-    }
 }

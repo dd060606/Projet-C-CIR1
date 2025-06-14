@@ -7,7 +7,7 @@ function main() {
     // updatePrecision(10);
     // updateEnergy(30);
     // addItemToInventory(ITEMS[0]);
-    addItemToInventory(ITEMS[1]);
+    addItemToInventory(ITEMS[0]);
     startScenario();
     // Déplacements
     moveCharacter("player", 200, 1500).then(() => {
@@ -49,7 +49,8 @@ function initChapterChoices() {
         choice.addEventListener("click", (e) => {
             e.preventDefault();
             moveCharacter("player", 1000, 1500).then(() => {
-                window.location.href = `${e.target.href}.html`;
+                const link = e.target.closest('a');
+                window.location.href = link.href;
             });
         });
     });

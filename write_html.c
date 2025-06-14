@@ -17,10 +17,12 @@ void writeHTML(struct ChapterArray *chapterArray) {
     system("rmdir /S /Q ..\\export >nul 2>&1");
     system("mkdir ..\\export\\chapters >nul 2>&1");
     system("xcopy /E /I /Y ..\\web\\* ..\\export\\");
+    system("del ..\\export\\chapter.html >nul 2>&1");
 #else
     system("rm -rf ../export/");
     system("mkdir -p ../export/chapters");
     system("cp -a ../web/. ../export/");
+    system("rm ../export/chapter.html");
 #endif
     for (int i = 0; i < chapterArray->size; i++) {
         char filename[50];
