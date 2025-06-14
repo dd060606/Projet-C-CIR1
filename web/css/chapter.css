@@ -138,6 +138,18 @@ p {
 	height: 70%;
 }
 
+.item-tooltip {
+	position: fixed;
+	background: var(--background);
+	color: #fff;
+	font-family: "Lora", serif;
+	padding: 8px 12px;
+	border-radius: 8px;
+	font-size: 1rem;
+	z-index: 2000;
+	pointer-events: none;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
 /* Les choix */
 .chapchoice {
 	display: flex;
@@ -180,6 +192,7 @@ p {
 	height: 90%;
 	align-self: center;
 }
+
 @keyframes slideUpOverlay {
 	from {
 		transform: translateY(100%);
@@ -290,4 +303,30 @@ p {
 	border: 10px solid transparent;
 	border-top: 12px solid #fff;
 	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.08));
+}
+
+#entity-health-bar {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	width: 150px;
+	height: 10px;
+	background-color: #333;
+	border-radius: 10px;
+	overflow: hidden;
+	z-index: 1002;
+}
+#entity-health-bar-inner {
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(to right, #ff0000, #ff7300, #ffb300, #ffff00);
+	transition: width 0.3s ease-in-out;
+}
+
+.projectile {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	z-index: 1100;
+	pointer-events: none;
 }

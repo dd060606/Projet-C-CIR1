@@ -12,13 +12,32 @@ const ITEMS = [
     }
 ];
 
+const ENTITIES = [
+    {
+        name: "nathaniel",
+        image: "../assets/nathaniel.png",
+        life: 0,
+        damage: 0
+    },
+    {
+        name: "nathaniel-chockbar",
+        image: "../assets/nathaniel-chockbar.png",
+        life: 80,
+        damage: 12
+    }
+]
+
+let isAttacking = false;
+
 // Les scénarios du jeu
 const SCENARIOS = [
     {
         //Le chapitre auquel appartient le scénario
-        chapterId: 1,
+        chapterId: 2,
         //Description du scénario
         description: "Le scénario de Nathaniel",
+        // Indique si c'est un combat ou non
+        isFight: false,
         // Fonction qui s'exécute avant le démarrage de l'interaction (mise en place des entités, etc.)
         preScenario: () => {
             spawnEntity("nathaniel");
@@ -27,7 +46,7 @@ const SCENARIOS = [
         beforeChoiceDiscussionText: `Bonjour jeune aventurier, je suis Nathaniel Raimbault.
         Je suis là pour te mettre au défi :
         Pourras-tu résoudre ce Casse tête et passer cette épreuve ?
-        Quel est le résultat de 99*17-85/3 ?
+        Quel est le résultat de 99*17-85/5 ?
         `,
         // Les choix disponibles pour le joueur
         choices: [
@@ -35,6 +54,21 @@ const SCENARIOS = [
                 text: "Résoudre",
                 // Fonction qui s'exécute lors du choix
                 onClick: () => {
+                    const result = prompt("Quel est le résultat de 99*17-85/5 ?");
+                    if (parseInt(result) === 1666) {
+                        showSpeechBubble("Bravo, tu as résolu l'énigme !\n Tu as gagné une banane.", 20);
+                        addItemToInventory(ITEMS[0]); // Ajoute la banane à l'inventaire
+                    } else {
+                        changeEntityImage("nathaniel-chockbar");
+                        showSpeechBubble("C'est dommage, tu aurais pu gagner un item, c'était pourtant trivial !", 20);
+                    }
+                    setTimeout(() => {
+                        closeSpeechBubble();
+                        moveCharacter("entity", 300, 1000).then(() => {
+                            // On termine le scénario
+                            endScenario();
+                        });
+                    }, 2000);
                 },
                 // Bulle de texte affiché après la discussion pour ce choix
                 afterDiscussionText: "",
@@ -42,18 +76,79 @@ const SCENARIOS = [
             {
                 text: "Attaquer",
                 onClick: () => {
+                    changeEntityImage("nathaniel-dead");
+                    setTimeout(() => {
+                        closeSpeechBubble();
+                        moveCharacter("entity", 200, 1000).then(() => {
+                            // On termine le scénario
+                            endScenario();
+                        });
+                    }, 2000);
+
                 },
                 afterDiscussionText: "C'est dommage, tu aurais pu gagner un item, c'était pourtant trivial !",
             }
         ]
+    },
+    {
+        chapterId: 1,
+        description: "Combat contre monstre",
+        isFight: true,
+        preScenario: () => {
+            spawnEntity("nathaniel-chockbar");
+        },
+        beforeChoiceDiscussionText: "",
+        choices: [
+            {
+                text: "Attaquer",
+                onClick: () => {
+                    // Empêche les attaques multiples
+                    if (isAttacking) {
+                        return;
+                    }
+                    isAttacking = true;
+                    shootProjectile("../assets/eclair.png").then(() => {
+                        playerAttackEntity();
+                        // Tour de l'entité
+                        setTimeout(() => {
+                            if (getCurrentEntity()?.life > 0) {
+                                // L'entité attaque le joueur
+                                shootProjectile("../assets/eclair.png", false).then(() => {
+                                    entityAttackPlayer();
+                                });
+                            } else {
+                                // Si l'entité est morte, on termine le scénario
+                                endScenario();
+                            }
+                            isAttacking = false;
+                        }, 500);
+                    });
+                },
+                afterDiscussionText: "",
+            },
+            {
+                text: "Fuite",
+                onClick: () => {
+                    endScenario();
+                    moveCharacter("player", -300, 1000).then(() => {
+                        window.location.href = `${localStorage.previousChapter || 1}.html`;
+                    });
+
+                },
+                afterDiscussionText: "",
+            }
+        ]
     }
 ];
+
+
 
 // On démarre le scénario correspondant au chapitre actuel
 function startScenario() {
     const chapterId = getCurrentChapter();
     const scenario = SCENARIOS.find(s => s.chapterId === chapterId);
     if (scenario) {
+        showChoiceButtons(false);
         scenario.preScenario();
     }
 }
@@ -67,39 +162,55 @@ function getCurrentChapter() {
 
 // Ajoute le bouton pour démarrer l'interaction
 function addStartInteractionBtn() {
+    const scenario = SCENARIOS.find(s => s.chapterId === getCurrentChapter());
+    if (!scenario) {
+        // Si aucun scénario n'est trouvé pour le chapitre actuel, on affiche directement les choix en parchemins
+        showChoiceButtons(true);
+        return;
+    }
+    // On crée le bouton pour démarrer l'interaction
     const gameBox = document.querySelector(".choices-container");
-    const chapchoice = document.querySelector(".chapchoice");
     const button = document.createElement("button");
     button.textContent = "Lancer l'interaction";
     button.className = "btn start-interaction-btn";
     button.addEventListener("click", () => {
         // Lors du clic, on démarre l'interaction
-        const scenario = SCENARIOS.find(s => s.chapterId === getCurrentChapter());
-        chapchoice.classList.add("is-open");
-        if (scenario) {
-            showSpeechBubble(scenario.beforeChoiceDiscussionText, 20);
-            // On affiche les choix disponibles
-            const choicesContainer = document.querySelector(".choices-container");
-            // Vide les choix précédents
-            choicesContainer.innerHTML = "";
-            scenario.choices.forEach(choice => {
-                const choiceButton = document.createElement("button");
-                choiceButton.textContent = choice.text;
-                choiceButton.className = "btn choice-btn";
-                choiceButton.addEventListener("click", () => {
-                    closeSpeechBubble();
-                    choice.onClick();
-                    showSpeechBubble(choice.afterDiscussionText, 20);
-                });
-                choicesContainer.appendChild(choiceButton);
-            });
+        setGameInterfaceFullscreen(true);
+        showSpeechBubble(scenario.beforeChoiceDiscussionText, 20);
+        // On affiche les choix disponibles
+        const choicesContainer = document.querySelector(".choices-container");
+        // Vide les choix précédents
+        clearScenarioChoices();
+
+        //On supprime le bouton de démarrage de l'interaction
+        button.remove();
+
+        // Si on est dans un combat, on démarre le combat
+        if (scenario.isFight) {
+            startFight();
         }
+
+        scenario.choices.forEach(choice => {
+            const choiceButton = document.createElement("button");
+            choiceButton.textContent = choice.text;
+            choiceButton.className = "btn choice-btn";
+            //Lors du clic sur un choix, on ferme la bulle de discussion et on exécute l'action associée
+            choiceButton.addEventListener("click", () => {
+                closeSpeechBubble();
+                choice.onClick();
+                // Affiche le texte après la discussion
+                showSpeechBubble(choice.afterDiscussionText, 20);
+
+            });
+            choicesContainer.appendChild(choiceButton);
+        });
     });
     gameBox.appendChild(button);
 }
 
 // Affiche une bulle de discussion au-dessus de l'entity
 function showSpeechBubble(text, speed = 20) {
+    if (!text) return;
     // Supprime l'ancienne bulle si elle existe
     const oldBubble = document.querySelector('.speech-bubble');
     if (oldBubble) oldBubble.remove();
@@ -114,7 +225,6 @@ function showSpeechBubble(text, speed = 20) {
     entity.parentElement.appendChild(bubble);
 
     // Positionne la bulle au-dessus de l'entity
-    const entityRect = entity.getBoundingClientRect();
     bubble.style.left = (entity.offsetLeft + entity.offsetWidth / 2) + 'px';
 
     // Affichage progressif du texte
@@ -135,4 +245,39 @@ function closeSpeechBubble() {
     if (bubble) {
         bubble.remove();
     }
+}
+
+// Ouvre l'interface de jeu en grand
+function setGameInterfaceFullscreen(fullscreen) {
+    const chapchoice = document.querySelector(".chapchoice");
+    if (fullscreen) {
+        chapchoice.classList.add("is-open");
+    } else {
+        chapchoice.classList.remove("is-open");
+    }
+}
+
+// Supprime les choix de scénario
+function clearScenarioChoices() {
+    const oldChoices = document.querySelectorAll(".choice-btn");
+    oldChoices.forEach(choice => choice.remove());
+}
+
+// Fonction pour afficher les boutons de choix (parchemins)
+function showChoiceButtons(show = true) {
+    const choices = document.querySelectorAll(".choice");
+    choices.forEach(choice => {
+        choice.style.display = show ? "flex" : "none";
+    });
+}
+
+// Fonction qui gère la fin du scénario
+function endScenario() {
+    // On sauvegarde le chapitre actuel dans le stockage local
+    localStorage.previousChapter = getCurrentChapter();
+    // On remet l'interface de jeu en mode normal
+    clearEntity();
+    setGameInterfaceFullscreen(false);
+    clearScenarioChoices();
+    showChoiceButtons(true);
 }

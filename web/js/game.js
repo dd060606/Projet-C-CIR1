@@ -1,11 +1,12 @@
 function main() {
     initGameTimer();
-
+    initChapterChoices();
     initInventory();
+
     // updateLife(30);
     // updatePrecision(10);
     // updateEnergy(30);
-    addItemToInventory(ITEMS[0]);
+    // addItemToInventory(ITEMS[0]);
     addItemToInventory(ITEMS[1]);
     startScenario();
     // Déplacements
@@ -21,23 +22,19 @@ main();
 
 // Temps de jeu peristent à travers les pages
 function initGameTimer() {
-    if (typeof (Storage) !== "undefined") {
-        let gameTime = 0;
-        // Vérifier si le temps de jeu est déjà stocké
-        if (localStorage.gameTime) {
-            // Si oui, récupérer le temps de jeu existant
-            gameTime = parseInt(localStorage.gameTime);
-        }
-
-        // Mettre à jour le temps de jeu toutes les secondes
-        setInterval(function () {
-            gameTime++;
-            localStorage.gameTime = gameTime;
-            document.querySelector("#play-time").textContent = formatTime(gameTime);
-        }, 1000);
-    } else {
-        console.log("Erreur, votre navigateur ne supporte pas le stockage local.");
+    let gameTime = 0;
+    // Vérifier si le temps de jeu est déjà stocké
+    if (localStorage.gameTime) {
+        // Si oui, récupérer le temps de jeu existant
+        gameTime = parseInt(localStorage.gameTime);
     }
+
+    // Mettre à jour le temps de jeu toutes les secondes
+    setInterval(function () {
+        gameTime++;
+        localStorage.gameTime = gameTime;
+        document.querySelector("#play-time").textContent = formatTime(gameTime);
+    }, 1000);
 }
 
 function formatTime(seconds) {
@@ -46,6 +43,16 @@ function formatTime(seconds) {
     return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
-
+//On ajoute l'animation de déplacement du personnage avant la redirection vers le chapitre suivant
+function initChapterChoices() {
+    document.querySelectorAll(".choice").forEach(choice => {
+        choice.addEventListener("click", (e) => {
+            e.preventDefault();
+            moveCharacter("player", 1000, 1500).then(() => {
+                window.location.href = `${e.target.href}.html`;
+            });
+        });
+    });
+}
 
 
