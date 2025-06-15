@@ -2,19 +2,15 @@ function main() {
     initGameTimer();
     initChapterChoices();
     initInventory();
+    initStats();
 
-    // updateLife(30);
-    // updatePrecision(10);
-    // updateEnergy(30);
     // addItemToInventory(ITEMS[0]);
-    addItemToInventory(ITEMS[0]);
+    //addItemToInventory(ITEMS[1]);
     startScenario();
     // Déplacements
     moveCharacter("player", 200, 1500).then(() => {
         addStartInteractionBtn();
     });
-    // moveCharacter("entity", 300, 1500).then(() => {
-    // });
 }
 
 main();
@@ -49,7 +45,7 @@ function initChapterChoices() {
         choice.addEventListener("click", (e) => {
             e.preventDefault();
             moveCharacter("player", 1000, 1500).then(() => {
-                const link = e.target.closest('a');
+                const link = e.target.closest("a");
                 window.location.href = link.href;
             });
         });

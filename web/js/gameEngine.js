@@ -72,6 +72,8 @@ function changeEntityImage(name) {
         const entityData = getEntityByName(name);
         if (entityData) {
             entity.src = entityData.image;
+        } else {
+            entity.src = `assets/${name}.png`;
         }
     }
 }
@@ -88,9 +90,35 @@ function getCurrentEntity() {
 
 // Statistiques du personnage
 
+function initStats() {
+    // On initialise les statistiques du personnage
+    if (!localStorage.life) {
+        localStorage.life = 100; // Vie initiale
+    }
+    if (!localStorage.energy) {
+        localStorage.energy = 100; // Énergie initiale
+    }
+    if (!localStorage.precision) {
+        localStorage.precision = 10; // Précision initiale
+    }
+
+    // On affiche les statistiques dans la div statline
+    let visualstats = document.querySelectorAll(".statline span")
+    let visuallife = visualstats[0];
+    visuallife.innerText = localStorage.life + "PV";
+    let visualprecision = visualstats[1];
+    visualprecision.innerText = localStorage.precision;
+    let visualenergy = visualstats[2];
+    visualenergy.innerText = localStorage.energy;
+}
+
 function updateLife(attack) {
     let life = getLife();
+
     life = life - attack;
+    if (life < 0) {
+        life = 0;
+    }
     //On stocke la vie dans le localStorage
     localStorage.life = life;
 
@@ -103,6 +131,9 @@ function updateLife(attack) {
 function updateEnergy(cost) {
     let energy = getEnergy();
     energy = energy - cost;
+    if (energy < 0) {
+        energy = 0;
+    }
     //On stocke l'énergie dans le localStorage
     localStorage.energy = energy;
 
@@ -115,6 +146,9 @@ function updateEnergy(cost) {
 function updatePrecision(weaponprecision) {
     let precision = getPrecision();
     precision = weaponprecision;
+    if (precision < 0) {
+        precision = 0;
+    }
     //On stocke la précision dans le localStorage
     localStorage.precision = precision;
 
@@ -125,27 +159,14 @@ function updatePrecision(weaponprecision) {
 
 // Récupère les statistiques du personnage depuis le stockage local
 function getLife() {
-    let life = 100;
-    if (localStorage.life) {
-        life = parseInt(localStorage.life);
-    }
-    return life;
+    return parseInt(localStorage.life);
 }
 function getEnergy() {
-    let energy = 100;
-    if (localStorage.energy) {
-        energy = parseInt(localStorage.energy);
-    }
-    return energy;
-
+    return parseInt(localStorage.energy);
 }
 
 function getPrecision() {
-    let precision = 10;
-    if (localStorage.precision) {
-        precision = parseInt(localStorage.precision);
-    }
-    return precision;
+    return parseInt(localStorage.precision);
 }
 
 // Initialise l'inventaire du personnage
@@ -163,30 +184,34 @@ function initInventory() {
     inventory.forEach((item, index) => {
         if (index < tab.length) {
             tab[index].innerHTML = `<img src="${item.image}" alt="${item.name}" class="item-image" />`;
-            // Ajout du tooltip sur l'image de l'item
-            const img = tab[index].querySelector('.item-image');
-            if (img) {
-                img.addEventListener('mouseenter', function (e) {
-                    let tooltip = document.createElement('div');
-                    tooltip.className = 'item-tooltip';
-                    tooltip.innerHTML = `<strong>${item.name}</strong><br>Dégâts : ${item.damage}`;
-                    document.body.appendChild(tooltip);
-                    // Positionnement du tooltip près de la souris
-                    const rect = img.getBoundingClientRect();
-                    tooltip.style.left = (rect.right + 10) + 'px';
-                    tooltip.style.top = (rect.top) + 'px';
-                });
-                img.addEventListener('mouseleave', function () {
-                    const tooltip = document.querySelector('.item-tooltip');
-                    if (tooltip) tooltip.remove();
-                });
-            }
+            initItemTooltip(tab[index], item);
         }
     });
 
     //On colore le slot sélectionné
     if (getInventory().length > 0) {
         colorInventory(getCurrentItemIndex());
+    }
+}
+// Ajoute un tooltip sur un item de l'inventaire
+function initItemTooltip(slotComponent, item) {
+    // Ajout du tooltip sur l'image de l'item
+    const img = slotComponent.querySelector('.item-image');
+    if (img) {
+        img.addEventListener('mouseenter', function (e) {
+            let tooltip = document.createElement('div');
+            tooltip.className = 'item-tooltip';
+            tooltip.innerHTML = `<strong>${item.name}</strong><br>Dégâts : ${item.damage}`;
+            document.body.appendChild(tooltip);
+            // Positionnement du tooltip près de la souris
+            const rect = img.getBoundingClientRect();
+            tooltip.style.left = (rect.right + 10) + 'px';
+            tooltip.style.top = (rect.top) + 'px';
+        });
+        img.addEventListener('mouseleave', function () {
+            const tooltip = document.querySelector('.item-tooltip');
+            if (tooltip) tooltip.remove();
+        });
     }
 }
 
@@ -227,6 +252,7 @@ function addItemToInventory(item) {
     // Met à jour l'affichage de l'inventaire
     let slots = document.querySelectorAll(".inventory .slot");
     slots[inventory.length - 1].innerHTML = `<img src="${item.image}" alt="${item.name}" class="item-image" />`;
+    initItemTooltip(slots[inventory.length - 1], item);
 }
 
 // Met à jour l'index de l'item courant du personnage
@@ -259,51 +285,61 @@ function stopFight() {
     removeHealthBar();
 }
 
-// Affiche la barre de vie de l'entité
+// Affiche la barre de vie de l'entité et du joueur
 function showHealthBar() {
 
-    // Vérifie si la barre de vie existe déjà
-    let healthBar = document.getElementById("entity-health-bar");
     // Création de la barre de vie
-    healthBar = document.createElement("div");
-    healthBar.id = "entity-health-bar";
-    healthBar.style.left = entity.offsetLeft + "px";
+    let entityHealthBar = document.createElement("div");
+    entityHealthBar.id = "entity-health-bar";
+    entityHealthBar.className = "health-bar";
+    entityHealthBar.style.left = document.getElementById("entity").offsetLeft + "px";
+    let playerHealthBar = document.createElement("div");
+    playerHealthBar.id = "player-health-bar";
+    playerHealthBar.className = "health-bar";
+    playerHealthBar.style.left = document.getElementById("player").offsetLeft - 15 + "px";
 
     // Jauge de vie
-    const bar = document.createElement("div");
-    bar.id = "entity-health-bar-inner";
-    healthBar.appendChild(bar);
+    const entityBar = document.createElement("div");
+    entityBar.id = "entity-health-bar-inner";
+    entityBar.className = "health-bar-inner";
+    entityHealthBar.appendChild(entityBar);
+    const playerBar = document.createElement("div");
+    playerBar.id = "player-health-bar-inner";
+    playerBar.className = "health-bar-inner";
+    playerHealthBar.appendChild(playerBar);
 
     // Ajout dans la game-box
     const gameBox = document.querySelector(".game-box");
-    gameBox.appendChild(healthBar);
+    gameBox.appendChild(entityHealthBar);
+    gameBox.appendChild(playerHealthBar);
+
+    updateHealthBar("player", getLife());
 }
 
-function updateHealthBar(health) {
-    const healthBar = document.getElementById("entity-health-bar-inner");
+// Met à jour la barre de vie de l'entité ou du joueur
+function updateHealthBar(healthId, newLife) {
+    const healthBar = document.getElementById(`${healthId}-health-bar-inner`);
     if (healthBar) {
         // Met à jour la largeur de la barre de vie en fonction de la santé restante
-        healthBar.style.width = `${health}%`;
+        healthBar.style.width = `${newLife}%`;
         // Change la couleur de la barre en fonction de la santé
-        if (health > 50) {
+        if (newLife > 50) {
             healthBar.style.backgroundColor = "green";
-        } else if (health > 20) {
+        } else if (newLife > 20) {
             healthBar.style.backgroundColor = "orange";
         } else {
             healthBar.style.backgroundColor = "red";
         }
     }
 }
-// Supprime la barre de vie de l'entité
+// Supprime les barres de vie
 function removeHealthBar() {
-    const healthBar = document.getElementById("entity-health-bar");
-    if (healthBar) {
-        healthBar.remove();
-    }
+    const healthBars = document.querySelectorAll(".health-bar");
+    healthBars.forEach(healthBar => healthBar.remove());
 }
 
 // Tire un projectile d'un élément à un autre
-function shootProjectile(image, fromPlayer = true, duration = 500) {
+function shootProjectile(fromPlayer = true, duration = 700) {
     return new Promise((resolve) => {
         const fromElem = fromPlayer ? document.getElementById("player") : document.getElementById("entity");
         const toElem = fromPlayer ? document.getElementById("entity") : document.getElementById("player");
@@ -312,6 +348,20 @@ function shootProjectile(image, fromPlayer = true, duration = 500) {
         // Création du projectile
         const projectile = document.createElement("img");
         projectile.className = "projectile";
+
+        //On récupère l'image du projectile en fonction de l'attaquant
+        let image = "../assets/potato.png";
+        if (fromPlayer) {
+            if (getInventory()[getCurrentItemIndex()]) {
+                image = getInventory()[getCurrentItemIndex()].image;
+            }
+        }
+        else {
+            const entity = getCurrentEntity();
+            if (entity && entity.projectileImage) {
+                image = entity.projectileImage;
+            }
+        }
         projectile.src = image;
 
         // Ajout dans la game-box
@@ -354,10 +404,16 @@ function shootProjectile(image, fromPlayer = true, duration = 500) {
 function entityAttackPlayer() {
     return new Promise((resolve) => {
         // On envoie un projectile vers le joueur
-        shootProjectile("../assets/eclair.png", false).then(() => {
+        shootProjectile(false).then(() => {
             const entity = getCurrentEntity();
             // On met à jour la vie du joueur
             updateLife(entity.damage);
+            const life = getLife();
+            updateHealthBar("player", life);
+            if (life <= 0) {
+                //Le joueur est mort
+                gameOver();
+            }
             resolve();
         });
     });
@@ -380,9 +436,9 @@ function playerAttackEntity() {
             return;
         }
         // On tire le projectile
-        shootProjectile(item.image, true, 750).then(() => {
+        shootProjectile().then(() => {
             // On met à jour la vie de l'entité
-            updateHealthBar(entity.life - item.damage);
+            updateHealthBar("entity", entity.life - item.damage);
 
             // On met à jour l'entité dans le stockage local
             localStorage.entity = JSON.stringify({
@@ -399,4 +455,56 @@ function playerAttackEntity() {
             resolve();
         });
     });
+}
+
+// Modale de game over
+function gameOver() {
+    // Overlay sombre
+    const overlay = document.createElement("div");
+    overlay.id = "gameover-overlay";
+    overlay.className = "gameover-overlay";
+
+    // Modale
+    const modal = document.createElement("div");
+    modal.id = "gameover-modal";
+    modal.className = "gameover-modal";
+
+    // Titre
+    const title = document.createElement("h2");
+    title.innerText = "Vous avez perdu !";
+    title.className = "gameover-title";
+    modal.appendChild(title);
+
+    // Message
+    const msg = document.createElement("p");
+    msg.innerText = "Votre aventure s'arrête ici...";
+    msg.className = "gameover-message";
+    modal.appendChild(msg);
+
+    // Boutons
+    const btns = document.createElement("div");
+    btns.className = "gameover-btns";
+
+    // Bouton recommencer
+    const retryBtn = document.createElement("button");
+    retryBtn.innerText = "Recommencer";
+    retryBtn.className = "btn";
+    retryBtn.addEventListener("click", () => {
+        // On vide le stockage local pour recommencer
+        localStorage.clear();
+        // On envoie le joueur vers le premier chapitre
+        window.location.href = "1.html"
+    });
+    btns.appendChild(retryBtn);
+
+    // Bouton quitter
+    const quitBtn = document.createElement("button");
+    quitBtn.innerText = "Quitter";
+    quitBtn.className = "btn";
+    quitBtn.addEventListener("click", () => window.location.href = "../index.html");
+    btns.appendChild(quitBtn);
+
+    modal.appendChild(btns);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
 }

@@ -23,7 +23,8 @@ const ENTITIES = [
         name: "nathaniel-chockbar",
         image: "../assets/nathaniel-chockbar.png",
         life: 80,
-        damage: 12
+        damage: 12,
+        projectileImage: "../assets/potato.png",
     }
 ]
 
@@ -33,7 +34,7 @@ let isAttacking = false;
 const SCENARIOS = [
     {
         //Le chapitre auquel appartient le scénario
-        chapterId: 2,
+        chapterId: 1,
         //Description du scénario
         description: "Le scénario de Nathaniel",
         // Indique si c'est un combat ou non
@@ -60,7 +61,7 @@ const SCENARIOS = [
                         addItemToInventory(ITEMS[0]); // Ajoute la banane à l'inventaire
                     } else {
                         changeEntityImage("nathaniel-chockbar");
-                        showSpeechBubble("C'est dommage, tu aurais pu gagner un item, c'était pourtant trivial !", 20);
+                        showSpeechBubble("Perdu, c'était pourtant trivial !", 20);
                     }
                     setTimeout(() => {
                         closeSpeechBubble();
@@ -68,7 +69,7 @@ const SCENARIOS = [
                             // On termine le scénario
                             endScenario();
                         });
-                    }, 2000);
+                    }, 3000);
                 },
                 // Bulle de texte affiché après la discussion pour ce choix
                 afterDiscussionText: "",
@@ -76,14 +77,17 @@ const SCENARIOS = [
             {
                 text: "Attaquer",
                 onClick: () => {
-                    changeEntityImage("nathaniel-dead");
-                    setTimeout(() => {
-                        closeSpeechBubble();
-                        moveCharacter("entity", 200, 1000).then(() => {
-                            // On termine le scénario
-                            endScenario();
-                        });
-                    }, 2000);
+                    shootProjectile().then(() => {
+                        changeEntityImage("nathaniel-dead");
+                        setTimeout(() => {
+                            closeSpeechBubble();
+                            moveCharacter("entity", 200, 1000).then(() => {
+                                // On termine le scénario
+                                endScenario();
+                            });
+                        }, 3000);
+                    });
+
 
                 },
                 afterDiscussionText: "C'est dommage, tu aurais pu gagner un item, c'était pourtant trivial !",
@@ -91,7 +95,7 @@ const SCENARIOS = [
         ]
     },
     {
-        chapterId: 1,
+        chapterId: 2,
         description: "Combat contre monstre",
         isFight: true,
         preScenario: () => {
@@ -195,9 +199,10 @@ function addStartInteractionBtn() {
             choiceButton.addEventListener("click", () => {
                 closeSpeechBubble();
                 choice.onClick();
-                // Affiche le texte après la discussion
-                showSpeechBubble(choice.afterDiscussionText, 20);
-
+                setTimeout(() => {
+                    // Affiche le texte après la discussion
+                    showSpeechBubble(choice.afterDiscussionText, 20);
+                }, 1000);
             });
             choicesContainer.appendChild(choiceButton);
         });
