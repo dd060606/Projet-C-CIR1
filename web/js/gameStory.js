@@ -130,7 +130,7 @@ const SCENARIOS = [
                 text: "Fuite",
                 onClick: () => {
                     stopFight();
-                    endScenario();
+                    endScenario(true);
                     moveCharacter("player", -300, 1000).then(() => {
                         window.location.href = `${localStorage.previousChapter || 1}.html`;
                     });
@@ -274,9 +274,11 @@ function showChoiceButtons(show = true) {
 }
 
 // Fonction qui gère la fin du scénario
-function endScenario() {
-    // On sauvegarde le chapitre actuel dans le stockage local
-    localStorage.previousChapter = getCurrentChapter();
+function endScenario(isEscaping = false) {
+    if (!isEscaping) {
+        // On sauvegarde le chapitre actuel dans le stockage local si on n'est pas en train de fuir
+        localStorage.previousChapter = getCurrentChapter();
+    }
     // On remet l'interface de jeu en mode normal
     clearEntity();
     setGameInterfaceFullscreen(false);

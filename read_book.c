@@ -21,8 +21,9 @@ struct ChapterArray readBookFile(char *filename) {
 
     while (fgets(line, sizeof(line), file)) {
         convertChapLine(&chapter, line);
-        //Si il y a un retour à la ligne
-        if (strlen(line) == 2) {
+
+        //S'il y a un retour à la ligne
+        if (strlen(line) <= 2) {
             chapter_add(&chapterArray, deep_copy_chapter(&chapter));
             chapter = initChapter();
         }

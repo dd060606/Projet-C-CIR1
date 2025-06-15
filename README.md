@@ -4,8 +4,6 @@ Projet de première année en C et HTML/CSS/JS
 
 # Construire le projet
 
-**Pour éviter les problèmes, il est recommandé de compiler le projet en utilisant Linux ou mettre en place la toolchain WSL dans CLion**
-
 ### Sur Windows
 
 1. Ouvrir le dossier du projet avec CLion puis lancer la compilation.

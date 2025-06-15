@@ -73,7 +73,7 @@ function changeEntityImage(name) {
         if (entityData) {
             entity.src = entityData.image;
         } else {
-            entity.src = `assets/${name}.png`;
+            entity.src = `../assets/${name}.png`;
         }
     }
 }
