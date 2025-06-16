@@ -48,6 +48,12 @@ const ENTITIES = [
     life: 0,
     damage: 0,
   },
+  {
+    name: "charbel",
+    image: "../assets/charbel.png",
+    life: 6,
+    damage: 0,
+  }
 ];
 
 // Empêche le joueur de faire un choix pendant une discussion
@@ -57,7 +63,7 @@ let canMakeChoice = true;
 const SCENARIOS = [
   {
     //Le chapitre auquel appartient le scénario
-    chapterId: 1,
+    chapterId: 15,
     //Description du scénario
     description: "Le scénario de Nathaniel",
     // Indique si c'est un combat ou non
@@ -67,7 +73,7 @@ const SCENARIOS = [
       spawnEntity("nathaniel");
     },
     // Le texte de discussion avant le choix du joueur
-    beforeChoiceDiscussionText: `Bonjour jeune aventurier, je suis Nathaniel Raimbault.
+    beforeChoiceDiscussionText: `Bonjour jeune aventurier, je suis Nathaniel.
         Je suis là pour te mettre au défi :
         Pourras-tu résoudre ce Casse tête et passer cette épreuve ?
         Quel est le résultat de 99*17-85/5 ?
@@ -121,6 +127,67 @@ const SCENARIOS = [
 
         },
         afterDiscussionText: "C'est dommage, tu aurais pu gagner un item, c'était pourtant trivial !",
+      }
+    ]
+  },
+  {
+    chapterId: 1,
+    description: "Tutoriel de combat",
+    isFight: true,
+    preScenario: () => {
+      spawnEntity("charbel");
+    },
+    beforeChoiceDiscussionText: `Bonjour, je suis Charbel.
+    Je vais t'apprendre à combattre.
+    Chaque tour, tu peux attaquer ou fuir.
+    Quand tu attaques, le monstre t'attaquera aussi en retour.
+    Choisis bien tes actions !
+    `,
+    choices: [
+      {
+        text: "Attaquer",
+        onClick: () => {
+          // Empêche les attaques multiples
+          if (!canMakeChoice) return;
+          canMakeChoice = false;
+          playerAttackEntity().then(() => {
+            changeEntityImage("charbel-chockbar");
+            setTimeout(() => {
+              changeEntityImage("charbel");
+              // Si l'entitté est morte
+              if (!getCurrentEntity()) {
+                spawnChest();
+                showSpeechBubble("Bravo, tu as complété le tutoriel !\n Tu as gagné une arme pour te battre contre les vrais monstres.", 20);
+                addItemToInventory(ITEMS[1]);
+
+                //On attend 5 secondes avant de fermer la bulle de discussion et de terminer le scénario
+                setTimeout(() => {
+                  closeSpeechBubble();
+                  clearChest();
+                  endScenario();
+                }, 5000);
+              }
+              else {
+                canMakeChoice = true;
+              }
+            }, 300);
+          });
+        },
+        afterDiscussionText: "",
+      },
+      {
+        text: "Fuite",
+        onClick: () => {
+          if (!canMakeChoice) return;
+          canMakeChoice = false;
+          stopFight();
+          endScenario(true);
+          moveCharacter("player", -300, 1000).then(() => {
+            window.location.href = `${localStorage.previousChapter || 1}.html`;
+          });
+
+        },
+        afterDiscussionText: "",
       }
     ]
   },
@@ -285,7 +352,7 @@ const SCENARIOS = [
       spawnEntity("mecha_florian");
     },
     // Le texte de discussion avant le choix du joueur
-    beforeChoiceDiscussionText: `Bonjour jeune aventurier, je suis Florian Bescher.
+    beforeChoiceDiscussionText: `Bonjour jeune aventurier, je suis Florian.
         Je suis venu du futur pour te lancer ce défi :
         Regarde ce code et dit moi quel langage c'est ?
         fn message(nom: &str) {
@@ -301,7 +368,7 @@ const SCENARIOS = [
           if (!canMakeChoice) return;
           canMakeChoice = false;
           const result = prompt("De quel langage s'agit-il ?");
-          if (result.toLowerCase() === "rust") {
+          if (result && result.toLowerCase() === "rust") {
             showSpeechBubble("Bravo !\n C'est bien du Rust, tu as résolu l'énigme et gagné un item.", 20);
             spawnChest();
           } else {
@@ -416,17 +483,25 @@ function showSpeechBubble(text, speed = 20) {
   const oldBubble = document.querySelector(".speech-bubble");
   if (oldBubble) oldBubble.remove();
 
+  const gameBox = document.querySelector(".game-box");
+
   // Récupère l'entity
   const entity = document.querySelector(".entity");
-  if (!entity) return;
 
   // Crée la bulle
   const bubble = document.createElement("div");
   bubble.className = "speech-bubble";
-  entity.parentElement.appendChild(bubble);
+  gameBox.appendChild(bubble);
 
-  // Positionne la bulle au-dessus de l'entity
-  bubble.style.left = entity.offsetLeft + entity.offsetWidth / 2 + "px";
+  if (entity) {
+    // Positionne la bulle au-dessus de l'entity
+    bubble.style.left = entity.offsetLeft + entity.offsetWidth / 2 + "px";
+  }
+  else {
+    // Si l'entity n'existe pas, on positionne la bulle au centre
+    bubble.style.left = "60%"
+  }
+
 
   // Affichage progressif du texte
   let i = 0;

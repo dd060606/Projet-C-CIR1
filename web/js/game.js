@@ -4,8 +4,8 @@ function main() {
     initInventory();
     initStats();
 
-    addItemToInventory(ITEMS[0]);
-    addItemToInventory(ITEMS[1]);
+    // addItemToInventory(ITEMS[0]);
+    // addItemToInventory(ITEMS[1]);
     startScenario();
     // Déplacements
     moveCharacter("player", 200, 1500).then(() => {
