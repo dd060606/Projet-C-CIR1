@@ -36,13 +36,13 @@
 <p>Vous pénétrez plus profondément dans le château, la lumière de votre torche projetant des ombres inquiétantes sur les murs. Une lourde porte en fer se trouve devant vous, et à l’intérieur, vous apercevez une silhouette plutôt intriguante : une sorte de robot humanoïde fait de chair et de métal avec des yeux brillants comme des puces électroniques.</p>
 <p>Il garde l’accès à une salle secrète, sans doute celle qui abrite un secret dont personne ne connaît l'exitsence. Vous êtes seul face à lui, et le combat semble inévitable. Il est la, face à vous.</p>
 <p>A moins que...</p>
-<choice idref="07">Affronter le robot humanoïde, espérant que vos compétences de combattant suffiront à le vaincre. Ou de trouver une autre alternative... <a>Chapitre 7</a></choice>
+<choice idref="11">Affronter le robot humanoïde, espérant que vos compétences de combattant suffiront à le vaincre. Ou de trouver une autre alternative... <a>Chapitre 7</a></choice>
 <choice idref="08">Chercher un moyen de contourner le monstre et d’accéder à la salle secrète sans le combattre. <a>Chapitre 8</a></choice>
 
 <chapter id="11">A la rencontre du robot.</chapter>
 <p>Vous rentrez en trombe dans la salle, brandissant votre arme et poussant un cri de défi pour tenter de l’intimider.</p>
 <p>La créature ne recule pas. Elle tourne lentement la tête vers vous, ses yeux lumineux s’ajustant comme des lentilles vivantes. Son corps, mi-chair, mi-machine, produit un bruit métallique à chaque mouvement. Il vous observe en silence pendant un instant, puis sa voix s’élève — une voix étrange, mêlant timbre synthétique et souffle humain :</p>
-<choice idref="11">Affronter le robot humanoïde, espérant que vos compétences de combattant suffiront à le vaincre. <a>Chapitre 7</a></choice>
+<choice idref="07">Affronter le robot humanoïde, espérant que vos compétences de combattant suffiront à le vaincre. <a>Chapitre 7</a></choice>
 
 <chapter id="07">Le Combat avec le Monstre</chapter>
 <p>Vous tombez nez à nez avec le Grand Dragon Céleste! Une immense bête aux écailles rouge et orange flamboyantes, dont les ailes, repliées comme des manteaux de feu, vibrent à chaque respiration.</p>
