@@ -37,16 +37,17 @@
 <choice idref="08">Chercher un moyen de contourner le monstre et d’accéder à la salle secrète sans le combattre. <a>Chapitre 8</a></choice>
 
 <chapter id="07">Le Combat avec le Monstre</chapter>
-<p>Vous engagez le combat contre la créature, frappant de toute votre force. Mais la peau de pierre du monstre est presque imperméable. Ses attaques sont puissantes, et chaque coup vous fait chanceler. Une vague de magie noire vous submerge et vous n’avez aucune chance de vous en sortir.</p>
-<choice idref="09">Vous vous effondrez, victime de cette créature terrifiante.  <a>Chapitre 9</a></choice>
+<p>Vous tombez nez-à-nez avec le grand Dragon Céleste ! Le monstre à l'air surpuissant avec ses écailles on dirait qu'il est presque intuable ! Ses attaques sont puissantes, et chaque coup peut vous faire chanceler. On dirait qu'il cache quelque chose derrière lui... Que faire ?!?</p>
+<choice idref="09">Qu'y a-t-il derrière le Dragon ???.  <a>Chapitre 9</a></choice>
+
 
 <chapter id="08">Le Collier aux Sept Pierres</chapter>
 <p>Vous décidez de ne pas affronter directement le monstre, mais d’utiliser votre intelligence pour contourner le danger. Vous réussissez à atteindre la salle secrète et là, sur un piédestal de marbre, repose le Collier aux Sept Pierres. Une lumière douce émane de lui, et, sans hésiter, vous le saisissez.</p>
 <p>Le monstre, inerte, ne semble plus pouvoir vous nuire. Vous avez gagné. Vous prenez le collier et vous vous sentez empli d’un pouvoir immense.</p>
 <choice idref="10">Vous prenez le collier, empli d’un pouvoir immense. <a>Chapitre 10</a></choice>
 
-<chapter id="09">La Mort de l'Aventurier</chapter>
-<p>Quoi que vous ayez choisi, votre aventure se termine tragiquement ici. La forêt, le château et ses secrets ont eu raison de vous. Dans l’ombre de ces lieux, votre histoire prend fin. Grinheim attendra un sauveur, mais ce ne sera pas vous.</p>
+<chapter id="09">La Fin ?</chapter>
+<p>Bien joué, valeureux aventurier! Après avoir bravé d'innombrables épreuves, résolu des casse-têtes tortueux et triomphé de redoutables ennemis, tu as finalement vaincu le dragon féroce qui gardait les derniers secrets de cette quête. Ton courage, ta ruse et ta persévérance t'ont mené jusqu'à la victoire. Tu peux maintenant lever haut ton arme et marcher avec fierté — car aujourd’hui, c’est toi le héros de la légende. Félicitations! Voici La Coupe de l’Écaille Brisée</p>
 
 <chapter id="10">Le Collier aux Sept Pierres</chapter>
 <p>Vous avez trouvé ce que vous cherchiez. Le Collier aux Sept Pierres brille dans vos mains, et avec lui, vous sentez que la malédiction qui pèse sur Grinheim va enfin être levée. Votre mission est accomplie. Vous n’êtes plus simplement un aventurier, mais un héros qui revient avec le pouvoir de sauver son village.</p>
