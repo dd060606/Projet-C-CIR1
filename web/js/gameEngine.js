@@ -428,10 +428,10 @@ function shootProjectile(fromPlayer = true, duration = 700, rotate=true) {
 }
 
 // L'entité attaque le joueur
-function entityAttackPlayer() {
+function entityAttackPlayer(rotateprojectile=true) {
     return new Promise((resolve) => {
         // On envoie un projectile vers le joueur
-        shootProjectile(false).then(() => {
+        shootProjectile(false,700,rotateprojectile).then(() => {
             const entity = getCurrentEntity();
             // On met à jour la vie du joueur
             updateLife(entity.damage);

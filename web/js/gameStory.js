@@ -182,7 +182,7 @@ const SCENARIOS = [
                         setTimeout(() => {
                             if (getCurrentEntity()?.life > 0) {
                                 // L'entité attaque le joueur
-                                entityAttackPlayer().then(() => isAttacking = false);
+                                entityAttackPlayer(false).then(() => isAttacking = false);
                             } else {
                                 // Si l'entité est morte, on termine le scénario
                                 endScenario();
