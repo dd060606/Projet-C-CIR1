@@ -44,6 +44,14 @@ const ENTITIES = [
         damage: 15,
         projectileImage: "../assets/fireball.png",
 
+    },
+    {
+        name: "mecha_florian",
+        image: "../assets/mecha_florian.png",
+        life: 0,
+        damage: 0,
+        
+
     }
 
 ]
@@ -264,6 +272,72 @@ const SCENARIOS = [
 
                 },
                 afterDiscussionText: "A la prochaine !",
+            }
+        ]
+    },
+    {
+        //Le chapitre auquel appartient le scénario
+        chapterId: 5,
+        //Description du scénario
+        description: "Le scénario de Mecha-Florian",
+        // Indique si c'est un combat ou non
+        isFight: false,
+        // Fonction qui s'exécute avant le démarrage de l'interaction (mise en place des entités, etc.)
+        preScenario: () => {
+            spawnEntity("mecha_florian");
+        },
+        // Le texte de discussion avant le choix du joueur
+        beforeChoiceDiscussionText: `Bonjour jeune aventurier, je suis Florian Bescher.
+        Je suis venu du futur pour te lancer ce défi :
+        Regarde ce code est dis moi quel langage c'est ? 
+        Pourras-tu résoudre ce Casse tête et passer cette épreuve ?
+        
+
+        `,
+        // Les choix disponibles pour le joueur
+        choices: [
+            {
+                text: "Résoudre",
+                // Fonction qui s'exécute lors du choix
+                onClick: () => {
+                    const result = prompt(" ?");
+                    if (parseInt(result) === 1666) {
+                        showSpeechBubble("Bravo, tu as résolu l'énigme !\n Tu as gagné un item.", 20);
+                        spawnChest();
+                        addItemToInventory(ITEMS[0]); // Ajoute la banane à l'inventaire
+                    } else {
+                        changeEntityImage("nathaniel-chockbar");
+                        showSpeechBubble("Perdu, c'était pourtant trivial !", 20);
+                    }
+                    setTimeout(() => {
+                        closeSpeechBubble();
+                        moveCharacter("entity", 300, 1000).then(() => {
+                            clearChest();
+                            // On termine le scénario
+                            endScenario();
+                        });
+                    }, 3000);
+                },
+                // Bulle de texte affiché après la discussion pour ce choix
+                afterDiscussionText: "",
+            },
+            {
+                text: "Attaquer",
+                onClick: () => {
+                    shootProjectile().then(() => {
+                        changeEntityImage("nathaniel-dead");
+                        setTimeout(() => {
+                            closeSpeechBubble();
+                            moveCharacter("entity", 200, 1000).then(() => {
+                                // On termine le scénario
+                                endScenario();
+                            });
+                        }, 3000);
+                    });
+
+
+                },
+                afterDiscussionText: "C'est dommage, tu aurais pu gagner un item, c'était pourtant trivial !",
             }
         ]
     },
