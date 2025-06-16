@@ -1,7 +1,8 @@
-<chapter id="01">Le Village de Grinheim</chapter>
+<chapter id="01">Le Camp d'entraînement</chapter>
 <p>Vous êtes originaire du village de Grinheim, un endroit tranquille niché entre des collines verdoyantes et une forêt dense. Le village, autrefois prospère, se trouve aujourd'hui sous l'emprise d'une malédiction ancienne. Les récoltes pourrissent, les enfants tombent malades, et un sentiment d'oppression envahit l'air. Selon la légende, un artefact puissant, le Collier aux Sept Pierres, possède le pouvoir de briser la malédiction et de sauver Grinheim.</p>
 <p>Cette légende a traversé les générations, mais personne n'a osé se lancer à sa recherche. C’est vous qui allez tenter de briser ce cycle de malheur. Vous partez à l’aube, votre sac de voyage prêt, les premiers rayons du soleil caressant la terre. Vous avez entendu que le collier se trouve quelque part au-delà de la Forêt de Bois-Perdu, un endroit que peu de gens osent traverser.</p>
-<p>Le vent frais souffle à travers les arbres, vous donnant un dernier souffle de courage. Vous faites vos adieux aux habitants de Grinheim et prenez le chemin de l’aventure.</p>
+<p>Le vent frais souffle à travers les arbres, vous donnant un dernier souffle de courage. Avant de partir à l'aventure, il faut apprendre à vous battre ! </p>
+<p>Le camp a acheté de tout nouveaux mannequins d'entraînement, Voici l'un d'eux : Mr Charbel Bouery, il réagit exactement comme un humain , une cible parfaite pour commencer !</p>
 <choice idref="02">Suivre le chemin au sud, qui mène à la Forêt de Bois-Perdu. <a>Chapitre 2</a></choice>
 <choice idref="03">Vous dirigez vers l’Est, où un ancien château a été aperçu par les voyageurs. <a>Chapitre 3</a></choice>
 
@@ -16,14 +17,14 @@
 <p>Après un long chemin, vous apercevez finalement une lueur au loin. La végétation se fait moins dense, et vous arrivez dans une clairière où se dresse un château imposant, presque en ruines. Les murs de pierres sont couverts de lichen, et les fenêtres brisées semblent observer vos moindres faits et gestes.</p>
 <p>Le vent souffle fort, apportant un frisson glacé. Vous avancez prudemment vers la porte principale, qui grince lorsqu’elle s’ouvre sous vos doigts. À l’intérieur, l’air est lourd et poussiéreux, mais vous sentez qu’un étrange pouvoir émane de ce lieu.</p>
 <p>Dans une salle sombre, vous apercevez un éclat de lumière. Vous vous approchez prudemment, mais le château semble se refermer sur vous.</p>
-<p>Soudainement, un monstre louche vient vous attaquer ! Quelles sont ces intentions ??? </p>
+<p>Soudainement, un monstre louche vient vous attaquer ! Quelles sont ses intentions ??? </p>
 <choice idref="06">Explorer l’intérieur du château, à la recherche de l’artefact. <a>Chapitre 6</a></choice>
 <choice idref="09">Chercher à ouvrir la porte du château pour sortir de ce lieu maudit. <a>Chapitre 9</a></choice>
 
 <chapter id="04">Au Nord de la Forêt</chapter>
 <p>Le vent du nord est glacial, et le ciel s’assombrit rapidement. Vous suivez un chemin étroit bordé de rochers escarpés, jusqu'à ce que vous atteigniez une crête où la vue est magnifique. La vallée en contrebas s’étend, serpentée par une rivière cristalline. Cependant, l’instabilité du sol rend chaque pas incertain.</p>
 <p>Une soudaine bourrasque vous fait trébucher. Vous perdez l’équilibre et, en une fraction de seconde, vous êtes projeté dans le vide. Le vent hurle à vos oreilles, et la chute est rapide. Vous heurtez les rochers sur le chemin avant de vous écraser dans la vallée. </p>
-<choice idref="09">Vous êtes inconscient. <a>Chapitre 9</a></choice>
+<choice idref="07">Vous êtes inconscient. <a>Chapitre 7</a></choice>
 
 <chapter id="05">Le Retour au Point de Départ</chapter>
 <p>Vous reprenez conscience, mais tout semble déformé. Les arbres, les rochers, tout semble revenir à son point de départ. Vous marchez sans but, jusqu’à ce que vous réalisiez que la forêt se referme encore sur vous. Le vent qui souffle ici semble plus fort, plus oppressant, et vous vous trouvez de nouveau sur le même chemin.</p>
