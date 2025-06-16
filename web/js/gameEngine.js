@@ -424,11 +424,18 @@ function playerAttackEntity() {
     return new Promise((resolve) => {
         const inventory = getInventory();
         const currentItemIndex = getCurrentItemIndex();
+        let item;
         if (currentItemIndex < 0 || currentItemIndex >= inventory.length) {
-            // Attaque impossible si aucun item n'est sélectionné
-            return;
+            // Item par défaut si l'index est invalide
+            item = {
+                name: "Patate",
+                damage: 1,
+                image: "../assets/potato.png"
+            };
+        } else {
+            // On récupère l'item courant
+            item = inventory[currentItemIndex];
         }
-        const item = inventory[currentItemIndex];
         const entity = getCurrentEntity();
 
         // Si l'entité est morte, on ne fait rien
