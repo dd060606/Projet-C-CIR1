@@ -363,7 +363,7 @@ function removeHealthBar() {
 }
 
 // Tire un projectile d'un élément à un autre
-function shootProjectile(fromPlayer = true, duration = 700) {
+function shootProjectile(fromPlayer = true, duration = 700, rotate=true) {
     return new Promise((resolve) => {
         const fromElem = fromPlayer ? document.getElementById("player") : document.getElementById("entity");
         const toElem = fromPlayer ? document.getElementById("entity") : document.getElementById("player");
@@ -372,6 +372,9 @@ function shootProjectile(fromPlayer = true, duration = 700) {
         // Création du projectile
         const projectile = document.createElement("img");
         projectile.className = "projectile";
+        if(rotate){
+            projectile.classList.add("rotate");
+        }
 
         //On récupère l'image du projectile en fonction de l'attaquant
         let image = "../assets/potato.png";

@@ -336,6 +336,10 @@ p {
 	height: 55px;
 	z-index: 1100;
 	pointer-events: none;
+
+}
+
+.projectile.rotate{
 	animation: projectile-rotate 1s linear infinite;
 }
 
