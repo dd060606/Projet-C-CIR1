@@ -10,8 +10,18 @@ const ITEMS = [
     name: "Faux",
     image: "../assets/faux.png",
     damage: 10,
-    precision: 10,
+    precision: 7,
   },
+  {
+    name: "Pistolet",
+    image: "../assets/gun.png",
+    damage: 20,
+    precision: 5,
+    projectile: {
+      image: "../assets/gun_shot.png",
+      rotate: false,
+    }
+  }
 ];
 
 const ENTITIES = [
@@ -38,8 +48,8 @@ const ENTITIES = [
   {
     name: "dragon",
     image: "../assets/dragon.png",
-    life: 40,
-    damage: 15,
+    life: 50,
+    damage: 45,
     projectileImage: "../assets/fireball.png",
   },
   {

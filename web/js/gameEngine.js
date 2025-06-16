@@ -419,16 +419,19 @@ function shootProjectile(fromPlayer = true, duration = 700, rotate = true) {
         // Création du projectile
         const projectile = document.createElement("img");
         projectile.className = "projectile";
-        if (rotate) {
-            projectile.classList.add("rotate");
-        }
-
         //On récupère l'image du projectile en fonction de l'attaquant
         let image = "../assets/potato.png";
         if (fromPlayer) {
             const item = getInventory()[getCurrentItemIndex()];
             if (item) {
-                image = item.image;
+                // Si l'item a une image de projectile, on l'utilise
+                if (item.projectile) {
+                    image = item.projectile.image;
+                    rotate = item.projectile.rotate;
+                }
+                else {
+                    image = item.image;
+                }
             }
         }
         else {
@@ -436,6 +439,9 @@ function shootProjectile(fromPlayer = true, duration = 700, rotate = true) {
             if (entity && entity.projectileImage) {
                 image = entity.projectileImage;
             }
+        }
+        if (rotate) {
+            projectile.classList.add("rotate");
         }
         projectile.src = image;
 
@@ -490,7 +496,13 @@ function shootMissedProjectile() {
         let image = "../assets/potato.png";
         const item = getInventory()[getCurrentItemIndex()];
         if (item) {
-            image = item.image;
+            // Si l'item a une image de projectile, on l'utilise
+            if (item.projectile) {
+                image = item.projectile.image;
+            }
+            else {
+                image = item.image;
+            }
         }
         projectile.src = image;
 
