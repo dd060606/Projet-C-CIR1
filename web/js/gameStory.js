@@ -240,7 +240,7 @@ const SCENARIOS = [
         onClick: () => {
           if (!canMakeChoice) return;
           canMakeChoice = false;
-          moveCharacter("player", 400, 1000).then(() => {
+          moveCharacter("player", 200, 1000).then(() => {
             setTimeout(() => {
               clearTrophy();
 
@@ -259,7 +259,7 @@ const SCENARIOS = [
         onClick: () => {
           if (!canMakeChoice) return;
           canMakeChoice = false;
-          moveCharacter("player", 400, 1000).then(() => {
+          moveCharacter("player", 200, 1000).then(() => {
             setTimeout(() => {
               clearTrophy();
 
