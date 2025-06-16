@@ -238,9 +238,9 @@ function initItemTooltip(slotComponent, item) {
             tooltip.className = 'item-tooltip';
             // Affiche les détails de l'item sauf pour la banane
             if (item.name === "Banane") {
-                tooltip.innerHTML = `<strong>${item.name}</strong><br>Dégâts : ?`;
+                tooltip.innerHTML = `<strong>${item.name}</strong><br>Dégâts : ?<br>Précision : ?`;
             } else {
-                tooltip.innerHTML = `<strong>${item.name}</strong><br>Dégâts : ${item.damage}`;
+                tooltip.innerHTML = `<strong>${item.name}</strong><br>Dégâts : ${item.damage}<br>Précision : ${item.precision}`;
             }
             document.body.appendChild(tooltip);
             // Positionnement du tooltip près de la souris
@@ -300,8 +300,7 @@ function setCurrentItemIndex(index) {
     if (index >= 0 && index < getInventory().length) {
         localStorage.currentItem = index;
         colorInventory(index);
-    } else {
-        console.log("Index d'item invalide.");
+        updatePrecision(getInventory()[index].precision);
     }
 }
 
@@ -397,8 +396,9 @@ function shootProjectile(fromPlayer = true, duration = 700, rotate=true) {
         //On récupère l'image du projectile en fonction de l'attaquant
         let image = "../assets/potato.png";
         if (fromPlayer) {
-            if (getInventory()[getCurrentItemIndex()]) {
-                image = getInventory()[getCurrentItemIndex()].image;
+            const item = getInventory()[getCurrentItemIndex()];
+            if (item) {
+                image = item.image;
             }
         }
         else {
@@ -445,6 +445,71 @@ function shootProjectile(fromPlayer = true, duration = 700, rotate=true) {
     });
 }
 
+// Tire un projectile qui rate la cible (quand la précision est insuffisante) 
+function shootMissedProjectile() {
+    return new Promise((resolve) => {
+        const fromElem = document.getElementById("player");
+        const toElem = document.getElementById("entity");
+        if (!fromElem || !toElem) return resolve();
+
+        // Création du projectile
+        const projectile = document.createElement("img");
+        projectile.className = "projectile";
+
+        // Image du projectile depuis l'inventaire du joueur
+        let image = "../assets/potato.png";
+        const item = getInventory()[getCurrentItemIndex()];
+        if (item) {
+            image = item.image;
+        }
+        projectile.src = image;
+
+        // Ajout dans la game-box
+        const gameBox = document.querySelector(".game-box");
+        gameBox.appendChild(projectile);
+
+        // Position de départ (centre du joueur)
+        const fromRect = fromElem.getBoundingClientRect();
+        const toRect = toElem.getBoundingClientRect();
+        const gameBoxRect = gameBox.getBoundingClientRect();
+
+        const startX = fromRect.left + fromRect.width / 2 - gameBoxRect.left - 20;
+        const startY = fromRect.top + fromRect.height / 2 - gameBoxRect.top - 20;
+        const endX = toRect.left + toRect.width / 2 - gameBoxRect.left - 20;
+        const endY = toRect.top + toRect.height / 2 - gameBoxRect.top - 20;
+
+        // Déviation du tir raté : toujours au-dessus de l'entité
+        const missOffsetY = -80 - Math.random() * 60; // toujours au-dessus
+        const missOffsetX = Math.random() * 40 - 20;  // léger aléa horizontal
+
+        const finalX = endX + missOffsetX;
+        const finalY = endY + missOffsetY;
+
+        projectile.style.left = `${startX}px`;
+        projectile.style.top = `${startY}px`;
+
+        // Animation vers la mauvaise direction (au-dessus de l'entité)
+        const duration = 700;
+        const startTime = performance.now();
+        function animateProjectile(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const x = startX + (finalX - startX) * progress;
+            const y = startY + (finalY - startY) * progress;
+            projectile.style.left = `${x}px`;
+            projectile.style.top = `${y}px`;
+            if (progress < 1) {
+                requestAnimationFrame(animateProjectile);
+            } else {
+                projectile.remove();
+                resolve();
+            }
+        }
+        requestAnimationFrame(animateProjectile);
+    });
+}
+
+
 // L'entité attaque le joueur
 function entityAttackPlayer(rotateprojectile=true) {
     return new Promise((resolve) => {
@@ -474,8 +539,9 @@ function playerAttackEntity() {
             // Item par défaut si l'index est invalide
             item = {
                 name: "Patate",
-                damage: 1,
-                image: "../assets/potato.png"
+                damage: 2,
+                image: "../assets/potato.png",
+                precision: 100
             };
         } else {
             // On récupère l'item courant
@@ -487,25 +553,36 @@ function playerAttackEntity() {
         if (!entity) {
             return;
         }
-        // On tire le projectile
-        shootProjectile().then(() => {
-            // On met à jour la vie de l'entité
-            updateHealthBar("entity", entity.life - item.damage, getEntityByName(entity.name).life);
 
-            // On met à jour l'entité dans le stockage local
-            localStorage.entity = JSON.stringify({
-                ...entity,
-                life: entity.life - item.damage
+        // Plus la précision est élevée, moins il y a de chance de rater
+        const miss = 1 / item.precision;
+        if (Math.random() < miss) {
+            shootMissedProjectile().then(() => {
+                resolve();
             });
+        } else {
+            // On tire le projectile
+            shootProjectile().then(() => {
+                // On met à jour la vie de l'entité
+                updateHealthBar("entity", entity.life - item.damage, getEntityByName(entity.name).life);
 
-            // Victoire
-            if (entity.life - item.damage <= 0) {
-                removeHealthBar();
-                clearEntity();
-                // Gérer la victoire
-            }
-            resolve();
-        });
+                // On met à jour l'entité dans le stockage local
+                localStorage.entity = JSON.stringify({
+                    ...entity,
+                    life: entity.life - item.damage
+                });
+
+                // Victoire
+                if (entity.life - item.damage <= 0) {
+                    removeHealthBar();
+                    clearEntity();
+                    // Gérer la victoire
+                }
+                resolve();
+            });
+        }
+
+
     });
 }
 

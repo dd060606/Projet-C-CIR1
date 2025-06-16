@@ -4,11 +4,13 @@ const ITEMS = [
         name: "Banane",
         image: "../assets/banane.png",
         damage: 1000,
+        precision: 100,
     },
     {
         name: "Faux",
         image: "../assets/faux.png",
         damage: 10,
+        precision: 10
     }
 ];
 
@@ -25,15 +27,15 @@ const ENTITIES = [
         life: 80,
         damage: 12,
         projectileImage: "../assets/potato.png",
-        
+
     },
-     {
+    {
         name: "blob",
         image: "../assets/blob.png",
         life: 40,
         damage: 15,
         projectileImage: "../assets/slimeball.png",
-        
+
     },
     {
         name: "dragon",
@@ -41,9 +43,9 @@ const ENTITIES = [
         life: 40,
         damage: 15,
         projectileImage: "../assets/fireball.png",
-        
+
     }
-    
+
 ]
 
 let isAttacking = false;
@@ -141,7 +143,7 @@ const SCENARIOS = [
                                 // Si l'entité est morte, on termine le scénario
                                 endScenario();
                             }
-                        }, 1000);
+                        }, 700);
                     });
                 },
                 afterDiscussionText: "",
@@ -249,13 +251,13 @@ const SCENARIOS = [
             {
                 text: "Quitter",
                 onClick: () => {
-                    
-                        moveCharacter("player", 1000, 2500).then(() => {
-                                // On termine le scénario
-                                endScenario();
-                            });
-                        
-                    
+
+                    moveCharacter("player", 1000, 2500).then(() => {
+                        // On termine le scénario
+                        endScenario();
+                    });
+
+
 
 
                 },
