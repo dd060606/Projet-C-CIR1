@@ -26,29 +26,41 @@
 <p>Une soudaine bourrasque vous fait trébucher. Vous perdez l’équilibre et, en une fraction de seconde, vous êtes projeté dans le vide. Le vent hurle à vos oreilles, et la chute est rapide. Vous heurtez les rochers sur le chemin avant de vous écraser dans la vallée. </p>
 <choice idref="07">Vous êtes inconscient. <a>Chapitre 7</a></choice>
 
-<chapter id="05">Le Retour au Point de Départ</chapter>
-<p>Vous reprenez conscience, mais tout semble déformé. Les arbres, les rochers, tout semble revenir à son point de départ. Vous marchez sans but, jusqu’à ce que vous réalisiez que la forêt se referme encore sur vous. Le vent qui souffle ici semble plus fort, plus oppressant, et vous vous trouvez de nouveau sur le même chemin.</p>
+<chapter id="05">Mais qui est ce mystérieux personnage ?</chapter>
+<p>Vous reprenez conscience, mais tout semble déformé. Les arbres, les rochers, tout semble revenir à son point de départ. Vous marchez sans but, jusqu’à ce que vous réalisiez que la forêt se referme encore sur vous. Le vent qui souffle ici semble plus fort, plus oppressant, et vous vous perdez dans la forêt.</p>
 <p>Cela vous semble une éternité depuis que vous avez quitté Grinheim. La forêt vous piège dans un cycle sans fin. Vous vous sentez perdu, sans espoir.</p>
-<choice idref="02">Continuer à avancer, espérant que le chemin finira par s’ouvrir. <a>Chapitre 2</a></choice>
+<p>Soudainement, un mystérieux sorcier sort des bois pour venir à votre rencontre</p>
+<choice idref="02">Continuer à avancer, en espérant que le chemin finira par s’ouvrir. <a>Chapitre 2</a></choice>
 
-<chapter id="06">Le Château et le Monstre</chapter>
-<p>Vous pénétrez plus profondément dans le château, la lumière de votre torche projetant des ombres inquiétantes sur les murs. Une lourde porte en fer se trouve devant vous, et à l’intérieur, vous apercevez une silhouette massive : un monstre fait de chair et de pierre, ses yeux brillants comme des gemmes.</p>
-<p>Il garde l’accès à une salle secrète, sans doute celle qui abrite le Collier aux Sept Pierres. Vous êtes seul face à lui, et le combat semble inévitable. Le monstre rugit, faisant trembler les murs du château.</p>
-<choice idref="07">Affronter le monstre, espérant que vos compétences de combattant suffiront à le vaincre. <a>Chapitre 7</a></choice>
+<chapter id="06">Un chateau qui cache quelque chose...</chapter>
+<p>Vous pénétrez plus profondément dans le château, la lumière de votre torche projetant des ombres inquiétantes sur les murs. Une lourde porte en fer se trouve devant vous, et à l’intérieur, vous apercevez une silhouette plutôt intriguante : une sorte de robot humanoïde fait de chair et de métal avec des yeux brillants comme des puces électroniques.</p>
+<p>Il garde l’accès à une salle secrète, sans doute celle qui abrite un secret dont personne ne connaît l'exitsence. Vous êtes seul face à lui, et le combat semble inévitable. Il est la, face à vous.</p>
+<p>A moins que...</p>
+<choice idref="07">Affronter le robot humanoïde, espérant que vos compétences de combattant suffiront à le vaincre. Ou de trouver une autre alternative... <a>Chapitre 7</a></choice>
 <choice idref="08">Chercher un moyen de contourner le monstre et d’accéder à la salle secrète sans le combattre. <a>Chapitre 8</a></choice>
 
+<chapter id="11">A la rencontre du robot.</chapter>
+<p>Vous rentrez en trombe dans la salle, brandissant votre arme et poussant un cri de défi pour tenter de l’intimider.</p>
+<p>La créature ne recule pas. Elle tourne lentement la tête vers vous, ses yeux lumineux s’ajustant comme des lentilles vivantes. Son corps, mi-chair, mi-machine, produit un bruit métallique à chaque mouvement. Il vous observe en silence pendant un instant, puis sa voix s’élève — une voix étrange, mêlant timbre synthétique et souffle humain :</p>
+<choice idref="07">Affronter le robot humanoïde, espérant que vos compétences de combattant suffiront à le vaincre. <a>Chapitre 7</a></choice>
+
 <chapter id="07">Le Combat avec le Monstre</chapter>
-<p>Vous tombez nez-à-nez avec le grand Dragon Céleste ! Le monstre à l'air surpuissant avec ses écailles on dirait qu'il est presque intuable ! Ses attaques sont puissantes, et chaque coup peut vous faire chanceler. On dirait qu'il cache quelque chose derrière lui... Que faire ?!?</p>
+<p>Vous tombez nez à nez avec le Grand Dragon Céleste! Une immense bête aux écailles rouge et orange flamboyantes, dont les ailes, repliées comme des manteaux de feu, vibrent à chaque respiration.</p>
+<p>Mais ce qui vous frappe autant que sa taille, c’est ce détail improbable: il porte un chapeau haut-de-forme noir, légèrement penché sur sa tête couronnée d’écailles brûlantes.</p>
+<p>Ses yeux de braise se posent sur vous. Il ne rugit pas immédiatement. Au lieu de cela, il cligne lentement des paupières et vous adresse la parole d’un ton grave et étonnamment... distingué.</p>
+
+<p>On dirait qu'il cache quelque chose derrière lui... Que faire ?!?</p>
 <choice idref="09">Qu'y a-t-il derrière le Dragon ???.  <a>Chapitre 9</a></choice>
 
 
-<chapter id="08">Le Collier aux Sept Pierres</chapter>
-<p>Vous décidez de ne pas affronter directement le monstre, mais d’utiliser votre intelligence pour contourner le danger. Vous réussissez à atteindre la salle secrète et là, sur un piédestal de marbre, repose le Collier aux Sept Pierres. Une lumière douce émane de lui, et, sans hésiter, vous le saisissez.</p>
-<p>Le monstre, inerte, ne semble plus pouvoir vous nuire. Vous avez gagné. Vous prenez le collier et vous vous sentez empli d’un pouvoir immense.</p>
+<chapter id="08">Attention !!!</chapter>
+<p>Vous décidez de ne pas affronter directement le robot. En observant attentivement les murs et les conduits d’aération anciens, vous repérez un passage dérobé, presque invisible dans l’ombre. Grâce à votre intelligence et à votre discrétion, vous parvenez à contourner la salle gardée… et à vous faufiler vers une pièce voisine.</p>
+<p>La lumière de votre torche vacille alors que vous avancez. Une odeur âcre, putride, vous assaille. Le sol est jonché d’ossements blanchis, certains humains, d'autres... plus massifs.</p>
+<p>Et au centre de la salle, dressé sur un tapis d’os anciens, se trouve un immense ours, au pelage brun foncé, parsemé de cicatrices étranges et avec de membres aux proportions déformées. Son souffle est rauque, et ses yeux brillent d’une lumière rougeâtre, presque artificielle.</p>
 <choice idref="10">Vous prenez le collier, empli d’un pouvoir immense. <a>Chapitre 10</a></choice>
 
 <chapter id="09">La Fin ?</chapter>
 <p>Bien joué, valeureux aventurier! Après avoir bravé d'innombrables épreuves, résolu des casse-têtes tortueux et triomphé de redoutables ennemis, tu as finalement vaincu le dragon féroce qui gardait les derniers secrets de cette quête. Ton courage, ta ruse et ta persévérance t'ont mené jusqu'à la victoire. Tu peux maintenant lever haut ton arme et marcher avec fierté — car aujourd’hui, c’est toi le héros de la légende. Félicitations! Voici La Coupe de l’Écaille Brisée</p>
 
 <chapter id="10">Le Collier aux Sept Pierres</chapter>
-<p>Vous avez trouvé ce que vous cherchiez. Le Collier aux Sept Pierres brille dans vos mains, et avec lui, vous sentez que la malédiction qui pèse sur Grinheim va enfin être levée. Votre mission est accomplie. Vous n’êtes plus simplement un aventurier, mais un héros qui revient avec le pouvoir de sauver son village.</p>
+<p>Vous avez trouvé un mystérieux objet. Le Totem de l'immortalité, qui brille dans vos mains, et avec lui, vous sentez que la malédiction qui pèse sur Grinheim va enfin être levée. Il vous permet de revivre si vous mourrez. Vous n’êtes plus simplement un aventurier, mais un héros qui revient avec le pouvoir de sauver son village.</p>
