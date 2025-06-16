@@ -263,7 +263,12 @@ p {
 	left: 70%;
 	transform: scaleX(-1);
 }
-
+.chest {
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	left: 50%;
+}
 .start-interaction-btn {
 	font-size: 1.5rem;
 	width: 300px;
