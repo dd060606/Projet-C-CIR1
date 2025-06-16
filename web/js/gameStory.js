@@ -205,7 +205,64 @@ const SCENARIOS = [
                 afterDiscussionText: "",
             }
         ]
-    }
+    },
+    {
+        //Le chapitre auquel appartient le scénario
+        chapterId: 9,
+        //Description du scénario
+        description: "Fin du Jeu",
+        // Indique si c'est un combat ou non
+        isFight: false,
+        // Fonction qui s'exécute avant le démarrage de l'interaction (mise en place des entités, etc.)
+        preScenario: () => {
+            spawnTrophy();
+        },
+        // Le texte de discussion avant le choix du joueur
+        beforeChoiceDiscussionText: ``,
+        // Les choix disponibles pour le joueur
+        choices: [
+            {
+                text: "Résoudre",
+                // Fonction qui s'exécute lors du choix
+                onClick: () => {
+                    const result = prompt("Quel est le résultat de 99*17-85/5 ?");
+                    if (parseInt(result) === 1666) {
+                        showSpeechBubble("Bravo, tu as résolu l'énigme !\n Tu as gagné une banane.", 20);
+                        spawnChest();
+                        addItemToInventory(ITEMS[0]); // Ajoute la banane à l'inventaire
+                    } else {
+                        changeEntityImage("nathaniel-chockbar");
+                        showSpeechBubble("Perdu, c'était pourtant trivial !", 20);
+                    }
+                    setTimeout(() => {
+                        closeSpeechBubble();
+                        moveCharacter("entity", 300, 1000).then(() => {
+                            clearChest();
+                            // On termine le scénario
+                            endScenario();
+                        });
+                    }, 3000);
+                },
+                // Bulle de texte affiché après la discussion pour ce choix
+                afterDiscussionText: "",
+            },
+            {
+                text: "Quitter",
+                onClick: () => {
+                    
+                        moveCharacter("player", 1000, 2500).then(() => {
+                                // On termine le scénario
+                                endScenario();
+                            });
+                        
+                    
+
+
+                },
+                afterDiscussionText: "A la prochaine !",
+            }
+        ]
+    },
 ];
 
 

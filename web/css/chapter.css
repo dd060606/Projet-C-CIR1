@@ -269,6 +269,13 @@ p {
 	height: 150px;
 	left: 50%;
 }
+
+.trophy {
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	left: 50%;
+}
 .start-interaction-btn {
 	font-size: 1.5rem;
 	width: 300px;

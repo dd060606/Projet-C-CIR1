@@ -104,6 +104,24 @@ function clearChest() {
     }
 }
 
+// Fait apparaitre un trophée
+function spawnTrophy() {
+    const gameBox = document.querySelector(".game-box");
+    const trophy = document.createElement("img");
+    trophy.className = "trophy";
+    trophy.src = "../assets/trophy.png";
+    gameBox.appendChild(trophy);
+}
+
+// On supprime le trophée
+function clearTrophy() {
+    const trophy = document.querySelector(".trophy");
+    if (trophy) {
+        trophy.remove();
+    }
+}
+
+
 
 // Statistiques du personnage
 
