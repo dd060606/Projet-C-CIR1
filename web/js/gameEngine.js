@@ -292,6 +292,39 @@ function addItemToInventory(item) {
     initItemTooltip(slots[inventory.length - 1], item);
 }
 
+// Supprime un item de l'inventaire du personnage
+function removeItemFromInventory(index) {
+    let inventory = getInventory();
+    if (index >= 0 && index < inventory.length) {
+        // Supprime l'item à l'index donné
+        inventory.splice(index, 1);
+        localStorage.inventory = JSON.stringify(inventory);
+
+        // Réorganise l'affichage de l'inventaire pour déplacer les items restants vers le début
+        let slots = document.querySelectorAll(".inventory .slot");
+        // Efface tous les slots
+        slots.forEach(slot => {
+            slot.innerHTML = "";
+            slot.style.border = "2px solid transparent";
+        });
+        // Réaffiche les items restants
+        inventory.forEach((item, idx) => {
+            slots[idx].innerHTML = `<img src="${item.image}" alt="${item.name}" class="item-image" />`;
+            initItemTooltip(slots[idx], item);
+        });
+
+        // Met à jour l'index courant si besoin
+        let currentIndex = getCurrentItemIndex();
+        if (currentIndex >= inventory.length) {
+            setCurrentItemIndex(Math.max(0, inventory.length - 1));
+        } else if (currentIndex === index) {
+            setCurrentItemIndex(Math.max(0, index - 1));
+        } else {
+            colorInventory(getCurrentItemIndex());
+        }
+    }
+}
+
 // Met à jour l'index de l'item courant du personnage
 function setCurrentItemIndex(index) {
     if (index >= 0 && index < getInventory().length) {
