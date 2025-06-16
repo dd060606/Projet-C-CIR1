@@ -244,7 +244,7 @@ const SCENARIOS = [
             setTimeout(() => {
               clearTrophy();
 
-              moveCharacter("player", 1000, 2500).then(() => {
+              moveCharacter("player", 500, 1250).then(() => {
                 // On vide le stockage local pour recommencer
                 localStorage.clear();
                 // On envoie le joueur vers le premier chapitre
@@ -263,7 +263,7 @@ const SCENARIOS = [
             setTimeout(() => {
               clearTrophy();
 
-              moveCharacter("player", 1000, 2500).then(() => {
+              moveCharacter("player", 500, 1250).then(() => {
                 window.location.href = "../index.html"
               });
             }, 1000);
