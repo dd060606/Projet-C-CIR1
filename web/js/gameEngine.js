@@ -87,6 +87,23 @@ function getCurrentEntity() {
     return entity;
 }
 
+// Fait apparaitre un coffre
+function spawnChest() {
+    const gameBox = document.querySelector(".game-box");
+    const chest = document.createElement("img");
+    chest.className = "chest";
+    chest.src = "../assets/coffre.png";
+    gameBox.appendChild(chest);
+}
+
+// On supprime le coffre
+function clearChest() {
+    const chest = document.querySelector(".chest");
+    if (chest) {
+        chest.remove();
+    }
+}
+
 
 // Statistiques du personnage
 
@@ -201,7 +218,12 @@ function initItemTooltip(slotComponent, item) {
         img.addEventListener('mouseenter', function (e) {
             let tooltip = document.createElement('div');
             tooltip.className = 'item-tooltip';
-            tooltip.innerHTML = `<strong>${item.name}</strong><br>Dégâts : ${item.damage}`;
+            // Affiche les détails de l'item sauf pour la banane
+            if (item.name === "Banane") {
+                tooltip.innerHTML = `<strong>${item.name}</strong><br>Dégâts : ?`;
+            } else {
+                tooltip.innerHTML = `<strong>${item.name}</strong><br>Dégâts : ${item.damage}`;
+            }
             document.body.appendChild(tooltip);
             // Positionnement du tooltip près de la souris
             const rect = img.getBoundingClientRect();
@@ -317,9 +339,11 @@ function showHealthBar() {
 }
 
 // Met à jour la barre de vie de l'entité ou du joueur
-function updateHealthBar(healthId, newLife) {
+function updateHealthBar(healthId, currentLife, maxLife = 100) {
     const healthBar = document.getElementById(`${healthId}-health-bar-inner`);
     if (healthBar) {
+        // Calcul du pourcentage de vie restante
+        let newLife = Math.round(currentLife / maxLife * 100);
         // Met à jour la largeur de la barre de vie en fonction de la santé restante
         healthBar.style.width = `${newLife}%`;
         // Change la couleur de la barre en fonction de la santé
@@ -445,7 +469,7 @@ function playerAttackEntity() {
         // On tire le projectile
         shootProjectile().then(() => {
             // On met à jour la vie de l'entité
-            updateHealthBar("entity", entity.life - item.damage);
+            updateHealthBar("entity", entity.life - item.damage, getEntityByName(entity.name).life);
 
             // On met à jour l'entité dans le stockage local
             localStorage.entity = JSON.stringify({

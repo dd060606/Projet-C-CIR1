@@ -68,6 +68,7 @@ const SCENARIOS = [
                     const result = prompt("Quel est le résultat de 99*17-85/5 ?");
                     if (parseInt(result) === 1666) {
                         showSpeechBubble("Bravo, tu as résolu l'énigme !\n Tu as gagné une banane.", 20);
+                        spawnChest();
                         addItemToInventory(ITEMS[0]); // Ajoute la banane à l'inventaire
                     } else {
                         changeEntityImage("nathaniel-chockbar");
@@ -76,6 +77,7 @@ const SCENARIOS = [
                     setTimeout(() => {
                         closeSpeechBubble();
                         moveCharacter("entity", 300, 1000).then(() => {
+                            clearChest();
                             // On termine le scénario
                             endScenario();
                         });
