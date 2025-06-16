@@ -34,6 +34,14 @@ const ENTITIES = [
         damage: 15,
         projectileImage: "../assets/slimeball.png",
         
+    },
+    {
+        name: "dragon",
+        image: "../assets/dragon.png",
+        life: 40,
+        damage: 15,
+        projectileImage: "../assets/fireball.png",
+        
     }
     
 ]
@@ -112,6 +120,52 @@ const SCENARIOS = [
         isFight: true,
         preScenario: () => {
             spawnEntity("blob");
+        },
+        beforeChoiceDiscussionText: "",
+        choices: [
+            {
+                text: "Attaquer",
+                onClick: () => {
+                    // Empêche les attaques multiples
+                    if (isAttacking) {
+                        return;
+                    }
+                    isAttacking = true;
+                    playerAttackEntity().then(() => {
+                        // Tour de l'entité
+                        setTimeout(() => {
+                            if (getCurrentEntity()?.life > 0) {
+                                // L'entité attaque le joueur
+                                entityAttackPlayer().then(() => isAttacking = false);
+                            } else {
+                                // Si l'entité est morte, on termine le scénario
+                                endScenario();
+                            }
+                        }, 1000);
+                    });
+                },
+                afterDiscussionText: "",
+            },
+            {
+                text: "Fuite",
+                onClick: () => {
+                    stopFight();
+                    endScenario(true);
+                    moveCharacter("player", -300, 1000).then(() => {
+                        window.location.href = `${localStorage.previousChapter || 1}.html`;
+                    });
+
+                },
+                afterDiscussionText: "",
+            }
+        ]
+    },
+    {
+        chapterId: 7,
+        description: "Combat contre dragon",
+        isFight: true,
+        preScenario: () => {
+            spawnEntity("dragon");
         },
         beforeChoiceDiscussionText: "",
         choices: [
