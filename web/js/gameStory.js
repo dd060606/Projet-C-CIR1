@@ -25,7 +25,17 @@ const ENTITIES = [
         life: 80,
         damage: 12,
         projectileImage: "../assets/potato.png",
+        
+    },
+     {
+        name: "blob",
+        image: "../assets/blob.png",
+        life: 40,
+        damage: 15,
+        projectileImage: "../assets/slimeball.png",
+        
     }
+    
 ]
 
 let isAttacking = false;
