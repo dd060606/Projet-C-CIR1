@@ -105,11 +105,11 @@ const SCENARIOS = [
         ]
     },
     {
-        chapterId: 2,
+        chapterId: 3,
         description: "Combat contre monstre",
         isFight: true,
         preScenario: () => {
-            spawnEntity("nathaniel-chockbar");
+            spawnEntity("blob");
         },
         beforeChoiceDiscussionText: "",
         choices: [
@@ -131,7 +131,7 @@ const SCENARIOS = [
                                 // Si l'entité est morte, on termine le scénario
                                 endScenario();
                             }
-                        }, 500);
+                        }, 1000);
                     });
                 },
                 afterDiscussionText: "",
