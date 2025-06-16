@@ -140,6 +140,8 @@ const SCENARIOS = [
                                 // L'entité attaque le joueur
                                 entityAttackPlayer().then(() => isAttacking = false);
                             } else {
+                                // On regen le joueur
+                                updateLife(getLife() + 50);
                                 // Si l'entité est morte, on termine le scénario
                                 endScenario();
                             }

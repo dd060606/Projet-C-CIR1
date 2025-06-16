@@ -147,19 +147,16 @@ function initStats() {
     visualenergy.innerText = localStorage.energy;
 }
 
-function updateLife(attack) {
-    let life = getLife();
-
-    life = life - attack;
-    if (life < 0) {
-        life = 0;
+function updateLife(newLife) {
+    if (newLife < 0) {
+        newLife = 0;
     }
     //On stocke la vie dans le localStorage
-    localStorage.life = life;
+    localStorage.life = newLife;
 
     let visualstats = document.querySelectorAll(".statline span")  //on prend que les span dans la div statline
     let visuallife = visualstats[0];
-    visuallife.innerText = life + "PV";
+    visuallife.innerText = newLife + "PV";
 }
 
 
@@ -380,7 +377,7 @@ function removeHealthBar() {
 }
 
 // Tire un projectile d'un élément à un autre
-function shootProjectile(fromPlayer = true, duration = 700, rotate=true) {
+function shootProjectile(fromPlayer = true, duration = 700, rotate = true) {
     return new Promise((resolve) => {
         const fromElem = fromPlayer ? document.getElementById("player") : document.getElementById("entity");
         const toElem = fromPlayer ? document.getElementById("entity") : document.getElementById("player");
@@ -389,7 +386,7 @@ function shootProjectile(fromPlayer = true, duration = 700, rotate=true) {
         // Création du projectile
         const projectile = document.createElement("img");
         projectile.className = "projectile";
-        if(rotate){
+        if (rotate) {
             projectile.classList.add("rotate");
         }
 
@@ -511,13 +508,13 @@ function shootMissedProjectile() {
 
 
 // L'entité attaque le joueur
-function entityAttackPlayer(rotateprojectile=true) {
+function entityAttackPlayer(rotateprojectile = true) {
     return new Promise((resolve) => {
         // On envoie un projectile vers le joueur
-        shootProjectile(false,700,rotateprojectile).then(() => {
+        shootProjectile(false, 700, rotateprojectile).then(() => {
             const entity = getCurrentEntity();
             // On met à jour la vie du joueur
-            updateLife(entity.damage);
+            updateLife(getLife() - entity.damage);
             const life = getLife();
             updateHealthBar("player", life);
             if (life <= 0) {
