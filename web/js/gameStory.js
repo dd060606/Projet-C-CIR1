@@ -20,8 +20,14 @@ const ITEMS = [
     projectile: {
       image: "../assets/gun_shot.png",
       rotate: false,
-    }
-  }
+    },
+  },
+  {
+    name: "Totem d'immortalité",
+    image: "../assets/totem.png",
+    damage: 0,
+    precision: 0,
+  },
 ];
 
 const ENTITIES = [
@@ -73,7 +79,7 @@ let canMakeChoice = true;
 const SCENARIOS = [
   {
     //Le chapitre auquel appartient le scénario
-    chapterId: 15,
+    chapterId: 5,
     //Description du scénario
     description: "Le scénario de Nathaniel",
     // Indique si c'est un combat ou non
@@ -297,6 +303,52 @@ const SCENARIOS = [
     ]
   },
   {
+    chapterId: 8,
+    description: "Combat contre l'ours",
+    isFight: true,
+    preScenario: () => {
+      spawnEntity("ours");
+    },
+    beforeChoiceDiscussionText: "",
+    choices: [
+      {
+        text: "Attaquer",
+        onClick: () => {
+          // Empêche les attaques multiples
+          if (!canMakeChoice) return;
+          canMakeChoice = false;
+          playerAttackEntity().then(() => {
+            // Tour de l'entité
+            setTimeout(() => {
+              if (getCurrentEntity()?.life > 0) {
+                // L'entité attaque le joueur
+                entityAttackPlayer(false).then(() => canMakeChoice = true);
+              } else {
+                // Si l'entité est morte, on termine le scénario
+                endScenario();
+              }
+            }, 1000);
+          });
+        },
+        afterDiscussionText: "",
+      },
+      {
+        text: "Fuite",
+        onClick: () => {
+          if (!canMakeChoice) return;
+          canMakeChoice = false;
+          stopFight();
+          endScenario(true);
+          moveCharacter("player", -300, 1000).then(() => {
+            window.location.href = `${localStorage.previousChapter || 1}.html`;
+          });
+
+        },
+        afterDiscussionText: "",
+      }
+    ]
+  },
+  {
     //Le chapitre auquel appartient le scénario
     chapterId: 9,
     //Description du scénario
@@ -351,8 +403,50 @@ const SCENARIOS = [
     ],
   },
   {
+    chapterId: 10,
+    description: "Totem d'immortalité",
+    isFight: false,
+    preScenario: () => {
+      spawnChest();
+    },
+    beforeChoiceDiscussionText: "Un coffre magique apparaît devant vous !\n Vous pouvez choisir de l'ouvrir ou de l'ignorer.",
+    choices: [
+      {
+        text: "Ouvrir",
+        onClick: () => {
+          if (!canMakeChoice) return;
+          canMakeChoice = false;
+          showSpeechBubble("Vous avez trouvé un totem d'immortalité !\n Vous pouvez l'utiliser pour survivre à un combat fatal.", 20);
+          setTimeout(() => {
+            closeSpeechBubble();
+            // On ajoute le totem à l'inventaire
+            addItemToInventory(ITEMS[3]);
+            clearChest();
+            moveCharacter("player", 1000, 2000).then(() => {
+              endScenario();
+            });
+          }, 3000);
+        },
+        afterDiscussionText: "",
+      },
+      {
+        text: "Ignorer",
+        onClick: () => {
+          if (!canMakeChoice) return;
+          canMakeChoice = false;
+          closeSpeechBubble();
+          clearChest();
+          moveCharacter("player", 1000, 1500).then(() => {
+            endScenario();
+          });
+        },
+        afterDiscussionText: "",
+      }
+    ]
+  },
+  {
     //Le chapitre auquel appartient le scénario
-    chapterId: 5,
+    chapterId: 11,
     //Description du scénario
     description: "Le scénario de Mecha-Florian",
     // Indique si c'est un combat ou non
