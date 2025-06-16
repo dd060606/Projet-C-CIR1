@@ -50,13 +50,14 @@ const ENTITIES = [
         image: "../assets/mecha_florian.png",
         life: 0,
         damage: 0,
-        
+
 
     }
 
 ]
 
-let isAttacking = false;
+// Empêche le joueur de faire un choix pendant une discussion
+let canMakeChoice = true;
 
 // Les scénarios du jeu
 const SCENARIOS = [
@@ -83,6 +84,9 @@ const SCENARIOS = [
                 text: "Résoudre",
                 // Fonction qui s'exécute lors du choix
                 onClick: () => {
+                    if (!canMakeChoice) return;
+                    canMakeChoice = false;
+
                     const result = prompt("Quel est le résultat de 99*17-85/5 ?");
                     if (parseInt(result) === 1666) {
                         showSpeechBubble("Bravo, tu as résolu l'énigme !\n Tu as gagné une banane.", 20);
@@ -99,7 +103,7 @@ const SCENARIOS = [
                             // On termine le scénario
                             endScenario();
                         });
-                    }, 3000);
+                    }, 5000);
                 },
                 // Bulle de texte affiché après la discussion pour ce choix
                 afterDiscussionText: "",
@@ -107,6 +111,8 @@ const SCENARIOS = [
             {
                 text: "Attaquer",
                 onClick: () => {
+                    if (!canMakeChoice) return;
+                    canMakeChoice = false;
                     shootProjectile().then(() => {
                         changeEntityImage("nathaniel-dead");
                         setTimeout(() => {
@@ -115,7 +121,7 @@ const SCENARIOS = [
                                 // On termine le scénario
                                 endScenario();
                             });
-                        }, 3000);
+                        }, 5000);
                     });
 
 
@@ -137,16 +143,15 @@ const SCENARIOS = [
                 text: "Attaquer",
                 onClick: () => {
                     // Empêche les attaques multiples
-                    if (isAttacking) {
-                        return;
-                    }
-                    isAttacking = true;
+                    if (!canMakeChoice) return;
+                    canMakeChoice = false;
+
                     playerAttackEntity().then(() => {
                         // Tour de l'entité
                         setTimeout(() => {
                             if (getCurrentEntity()?.life > 0) {
                                 // L'entité attaque le joueur
-                                entityAttackPlayer().then(() => isAttacking = false);
+                                entityAttackPlayer().then(() => canMakeChoice = true);
                             } else {
                                 // On regen le joueur
                                 updateLife(getLife() + 50);
@@ -161,6 +166,8 @@ const SCENARIOS = [
             {
                 text: "Fuite",
                 onClick: () => {
+                    if (!canMakeChoice) return;
+                    canMakeChoice = false;
                     stopFight();
                     endScenario(true);
                     moveCharacter("player", -300, 1000).then(() => {
@@ -185,16 +192,14 @@ const SCENARIOS = [
                 text: "Attaquer",
                 onClick: () => {
                     // Empêche les attaques multiples
-                    if (isAttacking) {
-                        return;
-                    }
-                    isAttacking = true;
+                    if (!canMakeChoice) return;
+                    canMakeChoice = false;
                     playerAttackEntity().then(() => {
                         // Tour de l'entité
                         setTimeout(() => {
                             if (getCurrentEntity()?.life > 0) {
                                 // L'entité attaque le joueur
-                                entityAttackPlayer(false).then(() => isAttacking = false);
+                                entityAttackPlayer(false).then(() => canMakeChoice = true);
                             } else {
                                 // Si l'entité est morte, on termine le scénario
                                 endScenario();
@@ -207,6 +212,8 @@ const SCENARIOS = [
             {
                 text: "Fuite",
                 onClick: () => {
+                    if (!canMakeChoice) return;
+                    canMakeChoice = false;
                     stopFight();
                     endScenario(true);
                     moveCharacter("player", -300, 1000).then(() => {
@@ -237,6 +244,8 @@ const SCENARIOS = [
                 text: "Résoudre",
                 // Fonction qui s'exécute lors du choix
                 onClick: () => {
+                    if (!canMakeChoice) return;
+                    canMakeChoice = false;
                     const result = prompt("Quel est le résultat de 99*17-85/5 ?");
                     if (parseInt(result) === 1666) {
                         showSpeechBubble("Bravo, tu as résolu l'énigme !\n Tu as gagné une banane.", 20);
@@ -253,7 +262,7 @@ const SCENARIOS = [
                             // On termine le scénario
                             endScenario();
                         });
-                    }, 3000);
+                    }, 5000);
                 },
                 // Bulle de texte affiché après la discussion pour ce choix
                 afterDiscussionText: "",
@@ -261,15 +270,12 @@ const SCENARIOS = [
             {
                 text: "Quitter",
                 onClick: () => {
-
+                    if (!canMakeChoice) return;
+                    canMakeChoice = false;
                     moveCharacter("player", 1000, 2500).then(() => {
                         // On termine le scénario
                         endScenario();
                     });
-
-
-
-
                 },
                 afterDiscussionText: "A la prochaine !",
             }
@@ -289,10 +295,10 @@ const SCENARIOS = [
         // Le texte de discussion avant le choix du joueur
         beforeChoiceDiscussionText: `Bonjour jeune aventurier, je suis Florian Bescher.
         Je suis venu du futur pour te lancer ce défi :
-        Regarde ce code est dis moi quel langage c'est ? 
-        Pourras-tu résoudre ce Casse tête et passer cette épreuve ?
-        
-
+        Regarde ce code et dit moi quel langage c'est ?
+        fn message(nom: &str) {
+            println!("Bonjour, {} !", nom);
+        }
         `,
         // Les choix disponibles pour le joueur
         choices: [
@@ -300,14 +306,14 @@ const SCENARIOS = [
                 text: "Résoudre",
                 // Fonction qui s'exécute lors du choix
                 onClick: () => {
-                    const result = prompt(" ?");
-                    if (parseInt(result) === 1666) {
-                        showSpeechBubble("Bravo, tu as résolu l'énigme !\n Tu as gagné un item.", 20);
+                    if (!canMakeChoice) return;
+                    canMakeChoice = false;
+                    const result = prompt("De quel langage s'agit-il ?");
+                    if (result.toLowerCase() === "rust") {
+                        showSpeechBubble("Bravo !\n C'est bien du Rust, tu as résolu l'énigme et gagné un item.", 20);
                         spawnChest();
-                        addItemToInventory(ITEMS[0]); // Ajoute la banane à l'inventaire
                     } else {
-                        changeEntityImage("nathaniel-chockbar");
-                        showSpeechBubble("Perdu, c'était pourtant trivial !", 20);
+                        showSpeechBubble("Perdu, j'espère que tu t'en sortira dans ton aventure !", 20);
                     }
                     setTimeout(() => {
                         closeSpeechBubble();
@@ -316,7 +322,7 @@ const SCENARIOS = [
                             // On termine le scénario
                             endScenario();
                         });
-                    }, 3000);
+                    }, 5000);
                 },
                 // Bulle de texte affiché après la discussion pour ce choix
                 afterDiscussionText: "",
@@ -324,20 +330,22 @@ const SCENARIOS = [
             {
                 text: "Attaquer",
                 onClick: () => {
+                    if (!canMakeChoice) return;
+                    canMakeChoice = false;
                     shootProjectile().then(() => {
-                        changeEntityImage("nathaniel-dead");
+                        removeItemFromInventory(getCurrentItemIndex());
                         setTimeout(() => {
                             closeSpeechBubble();
                             moveCharacter("entity", 200, 1000).then(() => {
                                 // On termine le scénario
                                 endScenario();
                             });
-                        }, 3000);
+                        }, 5000);
                     });
 
 
                 },
-                afterDiscussionText: "C'est dommage, tu aurais pu gagner un item, c'était pourtant trivial !",
+                afterDiscussionText: "Avec ma super armure du futur, tu n'as aucune chance !\n Ton arme s'est brisé !\n Le dragon va te dévorer !",
             }
         ]
     },
@@ -485,5 +493,5 @@ function endScenario(isEscaping = false) {
     setGameInterfaceFullscreen(false);
     clearScenarioChoices();
     showChoiceButtons(true);
-    isAttacking = false;
+    canMakeChoice = true;
 }
