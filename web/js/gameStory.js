@@ -672,6 +672,7 @@ function endScenario(isEscaping = false) {
   clearEntity();
   setGameInterfaceFullscreen(false);
   clearScenarioChoices();
+  stopFight();
   showChoiceButtons(true);
   canMakeChoice = true;
 }
