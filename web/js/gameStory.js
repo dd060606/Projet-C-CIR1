@@ -74,7 +74,7 @@ const ENTITIES = [
     name: "ours",
     image: "../assets/ours.png",
     life: 50,
-    damage: 30,
+    damage: 20,
     projectileImage: "../assets/griffe.png",
   },
 ];
@@ -113,7 +113,7 @@ const SCENARIOS = [
           const result = prompt("Quel est le résultat de 99*17-85/5 ?");
           if (parseInt(result) === 1666) {
             showSpeechBubble(
-              "Bravo, tu as résolu l'énigme !\n Tu as gagné une banane.",
+              "Bravo, tu as résolu l'énigme !\n Tu as gagné une banane.\n Attention, utilise la à bon escient, elle est à usage unique !",
               20
             );
             spawnChest();
@@ -160,7 +160,12 @@ const SCENARIOS = [
     description: "Tutoriel de combat",
     isFight: true,
     preScenario: () => {
-      spawnEntity("charbel");
+      // Si le tutoriel a déjà été fait, on ne le refait pas
+      if (localStorage.skipTutorial) {
+        endScenario();
+      } else {
+        spawnEntity("charbel");
+      }
     },
     beforeChoiceDiscussionText: `Bonjour, je suis Charbel.
     Je vais t'apprendre à combattre.
@@ -190,6 +195,7 @@ const SCENARIOS = [
 
                 //On attend 5 secondes avant de fermer la bulle de discussion et de terminer le scénario
                 setTimeout(() => {
+                  localStorage.skipTutorial = true;
                   closeSpeechBubble();
                   clearChest();
                   endScenario();

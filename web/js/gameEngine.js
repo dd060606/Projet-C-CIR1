@@ -646,6 +646,11 @@ function playerAttackEntity() {
           life: entity.life - item.damage,
         });
 
+        //Banane à usage unique
+        if (item.name === "Banane") {
+          removeItemFromInventory(currentItemIndex);
+        }
+
         // Victoire
         if (entity.life - item.damage <= 0) {
           removeHealthBar();
