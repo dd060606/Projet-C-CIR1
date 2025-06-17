@@ -3,6 +3,7 @@ function main() {
     initChapterChoices();
     initInventory();
     initStats();
+    initSounds();
 
     // addItemToInventory(ITEMS[0]);
     // addItemToInventory(ITEMS[2]);
