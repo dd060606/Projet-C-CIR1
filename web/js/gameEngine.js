@@ -706,3 +706,4 @@ function gameOver() {
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
 }
+
