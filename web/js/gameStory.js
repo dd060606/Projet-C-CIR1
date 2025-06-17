@@ -25,9 +25,15 @@ const ITEMS = [
   {
     name: "Totem d'immortalité",
     image: "../assets/totem.png",
-    damage: 0,
-    precision: 0,
+    damage: 2,
+    precision: 10,
   },
+  {
+    name: "Calculatrice",
+    image: "../assets/calculatrice.png",
+    damage: 2,
+    precision: 10,
+  }
 ];
 
 const ENTITIES = [
@@ -120,7 +126,9 @@ const SCENARIOS = [
             addItemToInventory(ITEMS[0]); // Ajoute la banane à l'inventaire
           } else {
             changeEntityImage("nathaniel-chockbar");
-            showSpeechBubble("Perdu, c'était pourtant trivial !", 20);
+            showSpeechBubble("Perdu, c'était pourtant trivial !\n Je t'offre cette calculatrice pour réussir le rattrapage", 20);
+            spawnChest();
+            addItemToInventory(ITEMS[4]); // Ajoute la calculatrice à l'inventaire
           }
           setTimeout(() => {
             closeSpeechBubble();
