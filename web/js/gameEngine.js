@@ -7,6 +7,7 @@ combatMusic.loop = true; // Pour que la musique de fond tourne en boucle
 deadMusic.loop = true;
 
 backgroundMusic.play();
+
 // Déplace le personnage ou l'entité
 function moveCharacter(id, distance, duration = 1000) {
   return new Promise((resolve) => {
