@@ -636,6 +636,9 @@ function showSpeechBubble(text, speed = 20) {
     if (i < text.length) {
       i++;
       setTimeout(typeWriter, speed);
+    } else if (i == text.length) {
+      voice.pause();
+      voice.currentTime = 0;
     }
   }
   typeWriter();
@@ -646,8 +649,6 @@ function closeSpeechBubble() {
   const bubble = document.querySelector(".speech-bubble");
   if (bubble) {
     bubble.remove();
-    voice.pause();
-    voice.currentTime = 0;
   }
 }
 
