@@ -36,7 +36,7 @@
 <p>Vous pénétrez plus profondément dans le château, la lumière de votre torche projetant des ombres inquiétantes sur les murs. Une lourde porte en fer se trouve devant vous, et à l’intérieur, vous apercevez une silhouette plutôt intriguante : une sorte de robot humanoïde fait de chair et de métal avec des yeux brillants comme des puces électroniques.</p>
 <p>Il garde l’accès à une salle secrète, sans doute celle qui abrite un secret dont personne ne connaît l'exitsence. Vous êtes seul face à lui, et le combat semble inévitable. Il est la, face à vous.</p>
 <p>A moins que...</p>
-<choice idref="11">Affronter le robot humanoïde, espérant que vos compétences de combattant suffiront à le vaincre. Ou de trouver une autre alternative... <a>Chapitre 7</a></choice>
+<choice idref="11">Affronter le robot humanoïde, pour le vaincre, ou trouver une autre alternative... <a>Chapitre 7</a></choice>
 <choice idref="08">Chercher un moyen de contourner le monstre et d’accéder à la salle secrète sans le combattre. <a>Chapitre 8</a></choice>
 
 <chapter id="11">A la rencontre du robot.</chapter>
@@ -62,6 +62,6 @@
 <chapter id="09">La Fin ?</chapter>
 <p>Bien joué, valeureux aventurier! Après avoir bravé d'innombrables épreuves, résolu des casse-têtes tortueux et triomphé de redoutables ennemis, tu as finalement vaincu le dragon féroce qui gardait les derniers secrets de cette quête. Ton courage, ta ruse et ta persévérance t'ont mené jusqu'à la victoire. Tu peux maintenant lever haut ton arme et marcher avec fierté — car aujourd’hui, c’est toi le héros de la légende. Félicitations! Voici La Coupe de l’Écaille Brisée</p>
 
-<chapter id="10">Le Collier aux Sept Pierres</chapter>
+<chapter id="10">Le Totem d'immortalité</chapter>
 <p>Vous avez trouvé un mystérieux objet. Le Totem de l'immortalité, qui brille dans vos mains, et avec lui, vous sentez que la malédiction qui pèse sur Grinheim va enfin être levée. Il vous permet de revivre si vous mourrez. Vous n’êtes plus simplement un aventurier, mais un héros qui revient avec le pouvoir de sauver son village.</p>
 <choice idref="07">Continuer vers la salle qui était derrière le robot pour voir ce qu'il y a.<a>Chapitre 7</a></choice>
