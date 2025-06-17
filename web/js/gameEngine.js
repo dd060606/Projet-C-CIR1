@@ -334,6 +334,12 @@ function setCurrentItemIndex(index) {
     }
 }
 
+// Savoir si le joueur possède l'item demandé
+function hasItem(itemName) {
+    const inventory = getInventory();
+    return inventory.some(item => item.name === itemName);
+}
+
 //On colore le slot sélectionné
 function colorInventory(index) {
     let tab = document.querySelectorAll(".slot");
@@ -656,17 +662,38 @@ function gameOver() {
     const btns = document.createElement("div");
     btns.className = "gameover-btns";
 
-    // Bouton recommencer
-    const retryBtn = document.createElement("button");
-    retryBtn.innerText = "Recommencer";
-    retryBtn.className = "btn";
-    retryBtn.addEventListener("click", () => {
-        // On vide le stockage local pour recommencer
-        localStorage.clear();
-        // On envoie le joueur vers le premier chapitre
-        window.location.href = "1.html"
-    });
-    btns.appendChild(retryBtn);
+    // Bouton du totem d'immortalité
+    if (hasItem("Totem d'immortalité")) {
+        const totemBtn = document.createElement("button");
+        totemBtn.innerText = "Utiliser le Totem";
+        totemBtn.className = "btn";
+        totemBtn.addEventListener("click", () => {
+            // On supprime le totem de l'inventaire
+            const inventory = getInventory();
+            // On cherche l'index du totem dans l'inventaire
+            const totemIndex = inventory.findIndex(item => item.name === "Totem d'immortalité");
+            removeItemFromInventory(totemIndex);
+            // On restaure la vie du joueur
+            updateLife(100);
+            // On reload la page pour relancer le combat
+            window.location.reload();
+        });
+        btns.appendChild(totemBtn);
+    } else {
+        // Bouton recommencer
+        const retryBtn = document.createElement("button");
+        retryBtn.innerText = "Recommencer";
+        retryBtn.className = "btn";
+        retryBtn.addEventListener("click", () => {
+            // On vide le stockage local pour recommencer
+            localStorage.clear();
+            // On envoie le joueur vers le premier chapitre
+            window.location.href = "1.html"
+        });
+        btns.appendChild(retryBtn);
+    }
+
+
 
     // Bouton quitter
     const quitBtn = document.createElement("button");

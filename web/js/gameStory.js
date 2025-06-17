@@ -69,6 +69,13 @@ const ENTITIES = [
     image: "../assets/charbel.png",
     life: 6,
     damage: 0,
+  },
+  {
+    name: "ours",
+    image: "../assets/ours.png",
+    life: 50,
+    damage: 30,
+    projectileImage: "../assets/griffe.png",
   }
 ];
 
@@ -231,7 +238,7 @@ const SCENARIOS = [
                 entityAttackPlayer().then(() => canMakeChoice = true);
               } else {
                 // On regen le joueur
-                updateLife(getLife() + 50);
+                updateLife(getLife() + 40);
                 // Si l'entité est morte, on termine le scénario
                 endScenario();
               }
@@ -324,6 +331,8 @@ const SCENARIOS = [
                 // L'entité attaque le joueur
                 entityAttackPlayer(false).then(() => canMakeChoice = true);
               } else {
+                // On regen le joueur
+                updateLife(getLife() + 50);
                 // Si l'entité est morte, on termine le scénario
                 endScenario();
               }
@@ -456,7 +465,7 @@ const SCENARIOS = [
       spawnEntity("mecha_florian");
     },
     // Le texte de discussion avant le choix du joueur
-    beforeChoiceDiscussionText: `Bonjour jeune aventurier, je suis Florian.
+    beforeChoiceDiscussionText: `Bonjour, je suis Mecha-Florian.
         Je suis venu du futur pour te lancer ce défi :
         Regarde ce code et dit moi quel langage c'est ?
         fn message(nom: &str) {
@@ -475,6 +484,8 @@ const SCENARIOS = [
           if (result && result.toLowerCase() === "rust") {
             showSpeechBubble("Bravo !\n C'est bien du Rust, tu as résolu l'énigme et gagné un item.", 20);
             spawnChest();
+            // Ajoute le pistolet à l'inventaire
+            addItemToInventory(ITEMS[2]);
           } else {
             showSpeechBubble("Perdu, j'espère que tu t'en sortira dans ton aventure !", 20);
           }
