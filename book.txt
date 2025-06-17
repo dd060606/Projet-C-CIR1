@@ -18,8 +18,8 @@
 <p>Le vent souffle fort, apportant un frisson glacé. Vous avancez prudemment vers la porte principale, qui grince lorsqu’elle s’ouvre sous vos doigts. À l’intérieur, l’air est lourd et poussiéreux, mais vous sentez qu’un étrange pouvoir émane de ce lieu.</p>
 <p>Dans une salle sombre, vous apercevez un éclat de lumière. Vous vous approchez prudemment, mais le château semble se refermer sur vous.</p>
 <p>Soudainement, un monstre louche vient vous attaquer ! Quelles sont ces intentions ??? </p>
-<choice idref="06">Explorer l’intérieur du château, à la recherche de l’artefact. <a>Chapitre 6</a></choice>
-<choice idref="09">Chercher à ouvrir la porte du château pour sortir de ce lieu maudit. <a>Chapitre 9</a></choice>
+<choice idref="06">Explorer l’intérieur du château, à la recherche d'un potentiel secret. <a>Chapitre 6</a></choice>
+<choice idref="08">Chercher à ouvrir une porte secondaire du château. <a>Chapitre 8</a></choice>
 
 <chapter id="04">Au Nord de la Forêt</chapter>
 <p>Le vent du nord est glacial, et le ciel s’assombrit rapidement. Vous suivez un chemin étroit bordé de rochers escarpés, jusqu'à ce que vous atteigniez une crête où la vue est magnifique. La vallée en contrebas s’étend, serpentée par une rivière cristalline. Cependant, l’instabilité du sol rend chaque pas incertain.</p>
@@ -27,8 +27,8 @@
 <choice idref="07">Vous êtes inconscient. <a>Chapitre 7</a></choice>
 
 <chapter id="05">Mais qui est ce mystérieux personnage ?</chapter>
-<p>Vous reprenez conscience, mais tout semble déformé. Les arbres, les rochers, tout semble revenir à son point de départ. Vous marchez sans but, jusqu’à ce que vous réalisiez que la forêt se referme encore sur vous. Le vent qui souffle ici semble plus fort, plus oppressant, et vous vous perdez dans la forêt.</p>
-<p>Cela vous semble une éternité depuis que vous avez quitté Grinheim. La forêt vous piège dans un cycle sans fin. Vous vous sentez perdu, sans espoir.</p>
+<p>Vous avez fait demi-tour, mais tout semble déformé. Les arbres, les rochers, tout semble revenir à son point de départ. Vous marchez pour revenir au Camp d'entraîneement, jusqu’à ce que vous réalisiez que la forêt se referme encore sur vous. Le vent qui souffle ici semble plus fort, plus oppressant, et vous vous perdez dans la forêt.</p>
+<p>Cela vous semble une éternité depuis que vous avez quitté le Camp. La forêt vous piège dans un cycle sans fin. Vous vous sentez perdu, sans espoir.</p>
 <p>Soudainement, un mystérieux sorcier sort des bois pour venir à votre rencontre</p>
 <choice idref="02">Continuer à avancer, en espérant que le chemin finira par s’ouvrir. <a>Chapitre 2</a></choice>
 
@@ -42,7 +42,7 @@
 <chapter id="11">A la rencontre du robot.</chapter>
 <p>Vous rentrez en trombe dans la salle, brandissant votre arme et poussant un cri de défi pour tenter de l’intimider.</p>
 <p>La créature ne recule pas. Elle tourne lentement la tête vers vous, ses yeux lumineux s’ajustant comme des lentilles vivantes. Son corps, mi-chair, mi-machine, produit un bruit métallique à chaque mouvement. Il vous observe en silence pendant un instant, puis sa voix s’élève — une voix étrange, mêlant timbre synthétique et souffle humain :</p>
-<choice idref="07">Affronter le robot humanoïde, espérant que vos compétences de combattant suffiront à le vaincre. <a>Chapitre 7</a></choice>
+<choice idref="07">Continuer vers la grande porte qui est derrière le robot pour voir ce qu'il y a.<a>Chapitre 7</a></choice>
 
 <chapter id="07">Le Combat avec le Monstre</chapter>
 <p>Vous tombez nez à nez avec le Grand Dragon Céleste! Une immense bête aux écailles rouge et orange flamboyantes, dont les ailes, repliées comme des manteaux de feu, vibrent à chaque respiration.</p>
@@ -57,10 +57,11 @@
 <p>Vous décidez de ne pas affronter directement le robot. En observant attentivement les murs et les conduits d’aération anciens, vous repérez un passage dérobé, presque invisible dans l’ombre. Grâce à votre intelligence et à votre discrétion, vous parvenez à contourner la salle gardée… et à vous faufiler vers une pièce voisine.</p>
 <p>La lumière de votre torche vacille alors que vous avancez. Une odeur âcre, putride, vous assaille. Le sol est jonché d’ossements blanchis, certains humains, d'autres... plus massifs.</p>
 <p>Et au centre de la salle, dressé sur un tapis d’os anciens, se trouve un immense ours, au pelage brun foncé, parsemé de cicatrices étranges et avec de membres aux proportions déformées. Son souffle est rauque, et ses yeux brillent d’une lumière rougeâtre, presque artificielle.</p>
-<choice idref="10">Vous prenez le collier, empli d’un pouvoir immense. <a>Chapitre 10</a></choice>
+<choice idref="10">Vous prenez le Totem, empli d’un pouvoir immense. <a>Chapitre 10</a></choice>
 
 <chapter id="09">La Fin ?</chapter>
 <p>Bien joué, valeureux aventurier! Après avoir bravé d'innombrables épreuves, résolu des casse-têtes tortueux et triomphé de redoutables ennemis, tu as finalement vaincu le dragon féroce qui gardait les derniers secrets de cette quête. Ton courage, ta ruse et ta persévérance t'ont mené jusqu'à la victoire. Tu peux maintenant lever haut ton arme et marcher avec fierté — car aujourd’hui, c’est toi le héros de la légende. Félicitations! Voici La Coupe de l’Écaille Brisée</p>
 
 <chapter id="10">Le Collier aux Sept Pierres</chapter>
 <p>Vous avez trouvé un mystérieux objet. Le Totem de l'immortalité, qui brille dans vos mains, et avec lui, vous sentez que la malédiction qui pèse sur Grinheim va enfin être levée. Il vous permet de revivre si vous mourrez. Vous n’êtes plus simplement un aventurier, mais un héros qui revient avec le pouvoir de sauver son village.</p>
+<choice idref="07">Continuer vers la salle qui était derrière le robot pour voir ce qu'il y a.<a>Chapitre 7</a></choice>
