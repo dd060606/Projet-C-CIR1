@@ -76,7 +76,7 @@ const ENTITIES = [
     life: 50,
     damage: 30,
     projectileImage: "../assets/griffe.png",
-  }
+  },
 ];
 
 // Empêche le joueur de faire un choix pendant une discussion
@@ -112,7 +112,10 @@ const SCENARIOS = [
 
           const result = prompt("Quel est le résultat de 99*17-85/5 ?");
           if (parseInt(result) === 1666) {
-            showSpeechBubble("Bravo, tu as résolu l'énigme !\n Tu as gagné une banane.", 20);
+            showSpeechBubble(
+              "Bravo, tu as résolu l'énigme !\n Tu as gagné une banane.",
+              20
+            );
             spawnChest();
             addItemToInventory(ITEMS[0]); // Ajoute la banane à l'inventaire
           } else {
@@ -146,12 +149,11 @@ const SCENARIOS = [
               });
             }, 5000);
           });
-
-
         },
-        afterDiscussionText: "C'est dommage, tu aurais pu gagner un item, c'était pourtant trivial !",
-      }
-    ]
+        afterDiscussionText:
+          "C'est dommage, tu aurais pu gagner un item, c'était pourtant trivial !",
+      },
+    ],
   },
   {
     chapterId: 1,
@@ -180,7 +182,10 @@ const SCENARIOS = [
               // Si l'entitté est morte
               if (!getCurrentEntity()) {
                 spawnChest();
-                showSpeechBubble("Bravo, tu as complété le tutoriel !\n Tu as gagné une arme pour te battre contre les vrais monstres.", 20);
+                showSpeechBubble(
+                  "Bravo, tu as complété le tutoriel !\n Tu as gagné une arme pour te battre contre les vrais monstres.",
+                  20
+                );
                 addItemToInventory(ITEMS[1]);
 
                 //On attend 5 secondes avant de fermer la bulle de discussion et de terminer le scénario
@@ -189,8 +194,7 @@ const SCENARIOS = [
                   clearChest();
                   endScenario();
                 }, 5000);
-              }
-              else {
+              } else {
                 canMakeChoice = true;
               }
             }, 300);
@@ -208,11 +212,10 @@ const SCENARIOS = [
           moveCharacter("player", -300, 1000).then(() => {
             window.location.href = `${localStorage.previousChapter || 1}.html`;
           });
-
         },
         afterDiscussionText: "",
-      }
-    ]
+      },
+    ],
   },
   {
     chapterId: 3,
@@ -235,7 +238,7 @@ const SCENARIOS = [
             setTimeout(() => {
               if (getCurrentEntity()?.life > 0) {
                 // L'entité attaque le joueur
-                entityAttackPlayer().then(() => canMakeChoice = true);
+                entityAttackPlayer().then(() => (canMakeChoice = true));
               } else {
                 // On regen le joueur
                 updateLife(getLife() + 40);
@@ -257,11 +260,10 @@ const SCENARIOS = [
           moveCharacter("player", -300, 1000).then(() => {
             window.location.href = `${localStorage.previousChapter || 1}.html`;
           });
-
         },
         afterDiscussionText: "",
-      }
-    ]
+      },
+    ],
   },
   {
     chapterId: 7,
@@ -283,7 +285,7 @@ const SCENARIOS = [
             setTimeout(() => {
               if (getCurrentEntity()?.life > 0) {
                 // L'entité attaque le joueur
-                entityAttackPlayer(false).then(() => canMakeChoice = true);
+                entityAttackPlayer(false).then(() => (canMakeChoice = true));
               } else {
                 // Si l'entité est morte, on termine le scénario
                 endScenario();
@@ -303,11 +305,10 @@ const SCENARIOS = [
           moveCharacter("player", -300, 1000).then(() => {
             window.location.href = `${localStorage.previousChapter || 1}.html`;
           });
-
         },
         afterDiscussionText: "",
-      }
-    ]
+      },
+    ],
   },
   {
     chapterId: 8,
@@ -329,7 +330,7 @@ const SCENARIOS = [
             setTimeout(() => {
               if (getCurrentEntity()?.life > 0) {
                 // L'entité attaque le joueur
-                entityAttackPlayer(false).then(() => canMakeChoice = true);
+                entityAttackPlayer(false).then(() => (canMakeChoice = true));
               } else {
                 // On regen le joueur
                 updateLife(getLife() + 50);
@@ -351,11 +352,10 @@ const SCENARIOS = [
           moveCharacter("player", -300, 1000).then(() => {
             window.location.href = `${localStorage.previousChapter || 1}.html`;
           });
-
         },
         afterDiscussionText: "",
-      }
-    ]
+      },
+    ],
   },
   {
     //Le chapitre auquel appartient le scénario
@@ -402,7 +402,7 @@ const SCENARIOS = [
               clearTrophy();
 
               moveCharacter("player", 500, 1250).then(() => {
-                window.location.href = "../index.html"
+                window.location.href = "../index.html";
               });
             }, 1000);
           });
@@ -418,14 +418,18 @@ const SCENARIOS = [
     preScenario: () => {
       spawnChest();
     },
-    beforeChoiceDiscussionText: "Un coffre magique apparaît devant vous !\n Vous pouvez choisir de l'ouvrir ou de l'ignorer.",
+    beforeChoiceDiscussionText:
+      "Un coffre magique apparaît devant vous !\n Vous pouvez choisir de l'ouvrir ou de l'ignorer.",
     choices: [
       {
         text: "Ouvrir",
         onClick: () => {
           if (!canMakeChoice) return;
           canMakeChoice = false;
-          showSpeechBubble("Vous avez trouvé un totem d'immortalité !\n Vous pouvez l'utiliser pour survivre à un combat fatal.", 20);
+          showSpeechBubble(
+            "Vous avez trouvé un totem d'immortalité !\n Vous pouvez l'utiliser pour survivre à un combat fatal.",
+            20
+          );
           setTimeout(() => {
             closeSpeechBubble();
             // On ajoute le totem à l'inventaire
@@ -450,8 +454,8 @@ const SCENARIOS = [
           });
         },
         afterDiscussionText: "",
-      }
-    ]
+      },
+    ],
   },
   {
     //Le chapitre auquel appartient le scénario
@@ -482,12 +486,18 @@ const SCENARIOS = [
           canMakeChoice = false;
           const result = prompt("De quel langage s'agit-il ?");
           if (result && result.toLowerCase() === "rust") {
-            showSpeechBubble("Bravo !\n C'est bien du Rust, tu as résolu l'énigme et gagné un item.", 20);
+            showSpeechBubble(
+              "Bravo !\n C'est bien du Rust, tu as résolu l'énigme et gagné un item.",
+              20
+            );
             spawnChest();
             // Ajoute le pistolet à l'inventaire
             addItemToInventory(ITEMS[2]);
           } else {
-            showSpeechBubble("Perdu, j'espère que tu t'en sortira dans ton aventure !", 20);
+            showSpeechBubble(
+              "Perdu, j'espère que tu t'en sortira dans ton aventure !",
+              20
+            );
           }
           setTimeout(() => {
             closeSpeechBubble();
@@ -516,12 +526,11 @@ const SCENARIOS = [
               });
             }, 5000);
           });
-
-
         },
-        afterDiscussionText: "Avec ma super armure du futur, tu n'as aucune chance !\n Ton arme s'est brisé !\n Le dragon va te dévorer !",
-      }
-    ]
+        afterDiscussionText:
+          "Avec ma super armure du futur, tu n'as aucune chance !\n Ton arme s'est brisé !\n Le dragon va te dévorer !",
+      },
+    ],
   },
 ];
 
@@ -594,6 +603,10 @@ function addStartInteractionBtn() {
 // Affiche une bulle de discussion au-dessus de l'entity
 function showSpeechBubble(text, speed = 20) {
   if (!text) return;
+  let voice = new Audio("../assets/sound/voicesound.mp3");
+
+  voice.loop = true; // Pour que la musique de fond tourne en boucle
+  voice.play();
   // Supprime l'ancienne bulle si elle existe
   const oldBubble = document.querySelector(".speech-bubble");
   if (oldBubble) oldBubble.remove();
@@ -611,12 +624,10 @@ function showSpeechBubble(text, speed = 20) {
   if (entity) {
     // Positionne la bulle au-dessus de l'entity
     bubble.style.left = entity.offsetLeft + entity.offsetWidth / 2 + "px";
-  }
-  else {
+  } else {
     // Si l'entity n'existe pas, on positionne la bulle au centre
-    bubble.style.left = "60%"
+    bubble.style.left = "60%";
   }
-
 
   // Affichage progressif du texte
   let i = 0;
@@ -635,6 +646,8 @@ function closeSpeechBubble() {
   const bubble = document.querySelector(".speech-bubble");
   if (bubble) {
     bubble.remove();
+    voice.pause();
+    voice.currentTime = 0;
   }
 }
 
