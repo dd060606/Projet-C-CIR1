@@ -449,9 +449,7 @@ const SCENARIOS = [
             // On ajoute le totem à l'inventaire
             addItemToInventory(ITEMS[3]);
             clearChest();
-            moveCharacter("player", 1000, 2000).then(() => {
-              endScenario();
-            });
+            endScenario();
           }, 3000);
         },
         afterDiscussionText: "",
