@@ -48,10 +48,8 @@
 <p>Vous tombez nez à nez avec le Grand Dragon Céleste! Une immense bête aux écailles rouge et orange flamboyantes, dont les ailes, repliées comme des manteaux de feu, vibrent à chaque respiration.</p>
 <p>Mais ce qui vous frappe autant que sa taille, c’est ce détail improbable: il porte un chapeau haut-de-forme noir, légèrement penché sur sa tête couronnée d’écailles brûlantes.</p>
 <p>Ses yeux de braise se posent sur vous. Il ne rugit pas immédiatement. Au lieu de cela, il cligne lentement des paupières et vous adresse la parole d’un ton grave et étonnamment... distingué.</p>
-
 <p>On dirait qu'il cache quelque chose derrière lui... Que faire ?!?</p>
 <choice idref="09">Qu'y a-t-il derrière le Dragon ???.  <a>Chapitre 9</a></choice>
-
 
 <chapter id="08">Attention !!!</chapter>
 <p>Vous décidez de ne pas affronter directement le robot. En observant attentivement les murs et les conduits d’aération anciens, vous repérez un passage dérobé, presque invisible dans l’ombre. Grâce à votre intelligence et à votre discrétion, vous parvenez à contourner la salle gardée… et à vous faufiler vers une pièce voisine.</p>
