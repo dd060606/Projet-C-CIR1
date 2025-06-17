@@ -53,7 +53,7 @@
 <choice idref="09">Qu'y a-t-il derrière le Dragon ???.  <a>Chapitre 9</a></choice>
 
 <chapter id="08">Attention !!!</chapter>
-<p>Vous décidez de ne pas affronter directement le robot. En observant attentivement les murs et les conduits d’aération anciens, vous repérez un passage dérobé, presque invisible dans l’ombre. Grâce à votre intelligence et à votre discrétion, vous parvenez à contourner la salle gardée… et à vous faufiler vers une pièce voisine.</p>
+<p>Après avoir observé attentivement les murs et les conduits d’aération anciens, vous prenez un passage dérobé, presque invisible dans l’ombre. Grâce à votre intelligence et à votre discrétion, vous parvenez à contourner la salle gardée… et à vous faufiler vers une pièce voisine.</p>
 <p>La lumière de votre torche vacille alors que vous avancez. Une odeur âcre, putride, vous assaille. Le sol est jonché d’ossements blanchis, certains humains, d'autres... plus massifs.</p>
 <p>Et au centre de la salle, dressé sur un tapis d’os anciens, se trouve un immense ours, au pelage brun foncé, parsemé de cicatrices étranges et avec de membres aux proportions déformées. Son souffle est rauque, et ses yeux brillent d’une lumière rougeâtre, presque artificielle.</p>
 <choice idref="10">Vous prenez le Totem, empli d’un pouvoir immense. <a>Chapitre 10</a></choice>

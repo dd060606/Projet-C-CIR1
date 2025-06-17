@@ -16,7 +16,7 @@ const ITEMS = [
     name: "Pistolet",
     image: "../assets/gun.png",
     damage: 20,
-    precision: 5,
+    precision: 10,
     projectile: {
       image: "../assets/gun_shot.png",
       rotate: false,
