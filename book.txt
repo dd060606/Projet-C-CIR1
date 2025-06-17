@@ -43,6 +43,7 @@
 <p>Vous rentrez en trombe dans la salle, brandissant votre arme et poussant un cri de défi pour tenter de l’intimider.</p>
 <p>La créature ne recule pas. Elle tourne lentement la tête vers vous, ses yeux lumineux s’ajustant comme des lentilles vivantes. Son corps, mi-chair, mi-machine, produit un bruit métallique à chaque mouvement. Il vous observe en silence pendant un instant, puis sa voix s’élève — une voix étrange, mêlant timbre synthétique et souffle humain :</p>
 <choice idref="07">Continuer vers la grande porte qui est derrière le robot pour voir ce qu'il y a.<a>Chapitre 7</a></choice>
+<choice idref="08">Se faufiler par le vieux conduit d'aération.<a>Chapitre 8</a></choice>
 
 <chapter id="07">Le Combat avec le Monstre</chapter>
 <p>Vous tombez nez à nez avec le Grand Dragon Céleste! Une immense bête aux écailles rouge et orange flamboyantes, dont les ailes, repliées comme des manteaux de feu, vibrent à chaque respiration.</p>
