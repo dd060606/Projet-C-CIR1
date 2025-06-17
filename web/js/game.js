@@ -10,7 +10,10 @@ function main() {
     startScenario();
     // Déplacements
     moveCharacter("player", 200, 1500).then(() => {
-        addStartInteractionBtn();
+        // On n'ajoute pas le bouton d'intéraction lors du tutoriel si le tutoriel est déjà fait
+        if (!(getCurrentChapter() === 1 && localStorage.skipTutorial)) {
+            addStartInteractionBtn();
+        }
     });
 }
 
