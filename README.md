@@ -77,6 +77,7 @@ Cette partie contient le style CSS et le code JavaScript dans le dossier `web` p
 `chapter.css` : c'est le fichier CSS qui stylise les pages HTML générées et les animations du jeu.
 
 **Partie JavaScript**
+
 Cette partie contient le code JavaScript pour gérer les interactions du jeu, les combats, les dialogues et les scénarios.
 On peut facilement ajouter de nouveaux scénarios pour ajouter des intéractions aux chapitres du livre.
 
